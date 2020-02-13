@@ -20,6 +20,7 @@ namespace ITLab.Controllers
 
         public IActionResult Index()
         {
+            //TEST COMMIT
             return View();
         }
 
