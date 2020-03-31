@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITLab", "ITLab\ITLab.csproj", "{815F0B24-F55F-498E-B4AD-4648EE4C5BEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITLab.Tests", "ITLab.Tests\ITLab.Tests.csproj", "{00105056-979F-43FE-9ADE-46FB931E234E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITLab.Tests", "ITLab.Tests\ITLab.Tests.csproj", "{00105056-979F-43FE-9ADE-46FB931E234E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
