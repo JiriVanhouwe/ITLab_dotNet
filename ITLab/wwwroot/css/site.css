@@ -24,6 +24,14 @@ a {
   border-color: #1861ac;
 }
 
+/* Calendar styles
+-------------------------------------------------- */
+#calendar {
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

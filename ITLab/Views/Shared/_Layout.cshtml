@@ -9,7 +9,37 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/css/mdb.min.css" rel="stylesheet">
 
+    <!-- Fullcalender -->
+    <link href="~/lib/fullcalendar/dist/core/main.min.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar/dist/daygrid/main.min.css" rel="stylesheet" />
+    <link href="~/lib/fullcalendar/dist/timegrid/main.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Fullcalender -->
+    <script src="~/lib/fullcalendar/dist/core/main.min.js"></script>
+    <script src="~/lib/fullcalendar/dist/daygrid/main.min.js"></script>
+    <script src="~/lib/fullcalendar/dist/timegrid/main.min.js"></script>
+    <script src="~/lib/fullcalendar/dist/interaction/main.min.js"></script>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: ['dayGrid', 'timeGrid', 'interaction'],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                }
+            });
+
+            calendar.render();
+        });
+
+    </script>
 </head>
 <body>
     <header>
