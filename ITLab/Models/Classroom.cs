@@ -10,7 +10,7 @@ namespace ITLab.Models
         GENT, AALST
     }
 
-    public enum ClassRoomCategory
+    public enum ClassroomCategory
     {
         AUDITORIUM,
         CLASSROOM,
@@ -23,9 +23,17 @@ namespace ITLab.Models
 
     public class Classroom
     {
+        public Classroom(string id, Campus campus, int maxSeats, ClassroomCategory category)
+        {
+            this.Id = id;
+            this.Campus = campus;
+            this.MaxSeats = maxSeats;
+            this.Category = category;
+        }
+
         public string Id { get; set; }
         public Campus Campus { get; set; }
         public int MaxSeats { get; set; }
-        public ClassRoomCategory RoomCategory { get; set; }
+        public ClassroomCategory Category { get; set; }
     }
 }

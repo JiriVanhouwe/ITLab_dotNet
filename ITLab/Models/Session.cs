@@ -19,7 +19,7 @@ namespace ITLab.Models
         public Classroom Classroom { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public int  MaxAttendees { get; set; }
+        public int MaxAttendees { get; set; }
         public IEnumerable<int> Media { get; set; }
         public string VideoUrl { get; set; }
         public IEnumerable<User> RegisteredUsers { get; set; }
@@ -29,5 +29,14 @@ namespace ITLab.Models
         protected State StateName { get; set; }
         protected SessionState State { get; set; }
 
+        public Session(string title, string description, DateTime startDateTime, DateTime endDateTime, int maxAttendees, string guestName)
+        {
+            Title = title;
+            Description = description;
+            StartDateTime = startDateTime;
+            EndDateTime = endDateTime;
+            MaxAttendees = maxAttendees;
+            Guestname = guestName;
+        }
     }
 }
