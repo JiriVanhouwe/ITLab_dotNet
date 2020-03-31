@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xunit;
 
-namespace ITLab
+namespace ITLab.Tests.Models
 {
-    public class SessionCalendar
+    class SessionTest
     {
     }
 }
