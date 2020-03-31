@@ -9,7 +9,6 @@ namespace ITLab.Models
     {
         #region Fields
         private string _id;
-        private IEnumerable<Session> _sessions;
         private DateTime _startDate;
         private DateTime _endTime;
         #endregion
@@ -24,27 +23,48 @@ namespace ITLab.Models
                     
                 int part1 = (int.Parse(value.Substring(0, 4))) + 1;
                 int part2 = int.Parse(value.Substring(4));
-                
+
                 if (part1 != part2)
                 {
                     throw new ArgumentException("id moet bestaan uit die opeenvolgende jaartallen");
                 }
                     
-                _id = Id;
+                _id = value;
             } }
         public IEnumerable<Session> Sessions { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
         #endregion
 
         #region Constructor
-        public SessionCalendar(string id, IEnumerable<Session> sessions, DateTime startTime, DateTime endTime)
+        public SessionCalendar(string id, IEnumerable<Session> sessions, DateTime startDate, DateTime endDate)
         {
             Id = id;
             Sessions = sessions;
-            StartDate = startTime;
-            EndDate = endTime;
-            
+            SetDates(startDate, endDate);
+
+        }
+
+
+        #endregion
+
+        #region Methodes
+        private void SetDates(DateTime startDate, DateTime endDate)
+        {
+           if(startDate.AddDays(1) > endDate)
+            {
+                throw new ArgumentException("einde datum moet minstens een dag achter begin datum liggen");
+            }
+           if (startDate.Year == endDate.Year|| startDate.AddYears(1).Year == endDate.Year) 
+            {
+                StartDate = startDate;
+                EndDate = endDate;
+            }
+            else
+            {
+                throw new ArgumentException("Datums mogen maximaal 1 jaar verschillen");
+            }
+           
         }
         #endregion
     }
