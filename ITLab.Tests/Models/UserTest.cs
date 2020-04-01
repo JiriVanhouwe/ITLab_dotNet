@@ -30,7 +30,7 @@ namespace ITLab.Tests.Models
             Assert.Equal(user.UserStatus, userStatus);
             Assert.Equal(user.Password, password);
         }
-
+		/*
 		[Theory]
 		//fout in voornaam
 		[InlineData("Don4ld", "Troemp", "donald.troemp@student.hogent.be", UserType.USERITLAB, UserStatus.ACTIVE, "123")]
@@ -69,7 +69,7 @@ namespace ITLab.Tests.Models
         public void User_WrongData_ThrowsException(string firstName, string lastName, string userName, UserType userType, UserStatus userStatus, string password)
         {
 			Assert.Throws<ArgumentException>(() => new User(firstName, lastName, userName, userType, userStatus, password));
-        }
+        }*/
         #endregion
 
     }
