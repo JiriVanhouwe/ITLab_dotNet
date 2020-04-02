@@ -47,11 +47,12 @@ namespace ITLab.Tests.Models
         }
 
         [Theory]
-        [InlineData("2019-09-01", "2020-08-30")]
+        [InlineData("2020-09-01", "2020-09-01")]
+        [InlineData("2020-09-01", "2020-09-02")]
         [InlineData("2019-09-01", "2021-08-30")]
-        [InlineData("2019-09-01", "2019-08-30")]
+        [InlineData("2019-09-01", "2019-08-29")]
         [InlineData("2019-09-01", "2019-09-02")]
-        public void SessionCalender_WrongDates_ThrowsArgumentException(String startDate, String endDate)
+        public void SessionCalender_WrongDates_ThrowsArgumentException(string startDate, string endDate)
         {
             Assert.Throws<ArgumentException>(() => new SessionCalendar(_validID, _sessions, DateTime.Parse(startDate), DateTime.Parse(endDate)));
         }

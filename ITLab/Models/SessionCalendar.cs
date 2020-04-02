@@ -51,7 +51,7 @@ namespace ITLab.Models
         #region Methodes
         private void SetDates(DateTime startDate, DateTime endDate)
         {
-           if(startDate.AddDays(1) > endDate)
+            if (DateTime.Compare(endDate , startDate.AddDays(1)) <= 0)
             {
                 throw new ArgumentException("einde datum moet minstens een dag achter begin datum liggen");
             }
