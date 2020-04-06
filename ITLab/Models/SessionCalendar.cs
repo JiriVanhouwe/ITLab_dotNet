@@ -1,5 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+
+namespace TestDatabase.Models
+{
+ public partial class SessionCalendar
+    {
+        public SessionCalendar()
+        {
+            Session = new HashSet<Session>();
+        }
+
+        public int Id { get; set; }
+        public DateTime? Enddate { get; set; }
+        public DateTime? Startdate { get; set; }
+
+        public virtual ICollection<Session> Session { get; set; }
+    }
+}
+
+
+/*using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,9 +56,11 @@ namespace ITLab.Models
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         #endregion
-
-        #region Constructor
-        public SessionCalendar(string id, IEnumerable<Session> sessions, DateTime startDate, DateTime endDate)
+        public SessionCalendar()
+        {
+        }
+            #region Constructor
+            public SessionCalendar(string id, IEnumerable<Session> sessions, DateTime startDate, DateTime endDate)
         {
             Id = id;
             Sessions = sessions;
@@ -69,3 +92,4 @@ namespace ITLab.Models
         #endregion
     }
 }
+*/
