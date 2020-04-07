@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TestDatabase.Models;
+using ITLab.Models;
+using ITLab.Data.Repositories;
 
 namespace ITLab
 {
@@ -35,6 +37,7 @@ namespace ITLab
                 .AddEntityFrameworkStores<ITLab_DBContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

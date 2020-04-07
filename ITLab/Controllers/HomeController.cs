@@ -6,20 +6,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ITLab.Models;
+using TestDatabase.Models;
 
 namespace ITLab.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserRepository _usersRepo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserRepository rep)
         {
             _logger = logger;
+            _usersRepo = rep;
         }
 
         public IActionResult Index()
         {
+            ItlabUser user = _usersRepo.GetById();
+            ViewData["user"] = user.Firstname + user.UserStatus;
             //TEST COMMIT
             return View();
         }

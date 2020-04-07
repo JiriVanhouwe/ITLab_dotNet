@@ -20,7 +20,7 @@ namespace TestDatabase.Models
         public int Maxattendee { get; set; }
         public string Nameguest { get; set; }
         public TimeSpan Starthour { get; set; }
-        public string Stateenum { get; set; }
+        public State Stateenum { get; set; }
         public string Title { get; set; }
         public string Videourl { get; set; }
         public string ClassroomClassid { get; set; }

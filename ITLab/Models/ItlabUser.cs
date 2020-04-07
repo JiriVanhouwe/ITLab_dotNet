@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ITLab.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TestDatabase.Models
 {
@@ -17,8 +19,10 @@ namespace TestDatabase.Models
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Password { get; set; }
-        public string Userstatus { get; set; }
-        public string Usertype { get; set; }
+        public UserStatus UserStatus { get; set; }
+        public UserType UserType { get; set; }
+
+ 
 
         public virtual ICollection<AttendeeUser> AttendeeUser { get; set; }
         public virtual ICollection<Feedback> Feedback { get; set; }

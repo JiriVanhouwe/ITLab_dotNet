@@ -1,6 +1,9 @@
 ﻿using System;
+using ITLab.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using static TestDatabase.Models.ItlabUser;
 
 namespace TestDatabase.Models
 {
@@ -56,6 +59,9 @@ namespace TestDatabase.Models
 
             modelBuilder.Entity<Classroom>(entity =>
             {
+                EnumToStringConverter<Campus> converterCampus = new EnumToStringConverter<Campus>();
+                EnumToStringConverter<RoomCategory> converterRoomcategory = new EnumToStringConverter<RoomCategory>();
+
                 entity.HasKey(e => e.Classid)
                     .HasName("PK__Classroo__96D40B6C3B806A01");
 
@@ -64,7 +70,7 @@ namespace TestDatabase.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Campus)
+                entity.Property(e => e.Campus).HasConversion(converterCampus)
                     .IsRequired()
                     .HasColumnName("CAMPUS")
                     .HasMaxLength(255)
@@ -76,7 +82,7 @@ namespace TestDatabase.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Roomcategory)
+                entity.Property(e => e.Roomcategory).HasConversion(converterRoomcategory)
                     .IsRequired()
                     .HasColumnName("ROOMCATEGORY")
                     .HasMaxLength(255)
@@ -128,6 +134,9 @@ namespace TestDatabase.Models
 
             modelBuilder.Entity<ItlabUser>(entity =>
             {
+                EnumToStringConverter<UserStatus> converterStatus = new EnumToStringConverter<UserStatus>();
+                EnumToStringConverter<UserType> converterType = new EnumToStringConverter<UserType>();
+
                 entity.HasKey(e => e.Username)
                     .HasName("PK__ItlabUse__B15BE12FB744CF0C");
 
@@ -154,13 +163,13 @@ namespace TestDatabase.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Userstatus)
+                entity.Property(e => e.UserStatus).HasConversion(converterStatus)
                     .IsRequired()
                     .HasColumnName("USERSTATUS")
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Usertype)
+                entity.Property(e => e.UserType).HasConversion(converterType)
                     .IsRequired()
                     .HasColumnName("USERTYPE")
                     .HasMaxLength(255)
@@ -194,6 +203,9 @@ namespace TestDatabase.Models
 
             modelBuilder.Entity<Session>(entity =>
             {
+                EnumToStringConverter<State> converterState = new EnumToStringConverter<State>();
+
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.ClassroomClassid)
@@ -227,7 +239,7 @@ namespace TestDatabase.Models
 
                 entity.Property(e => e.Starthour).HasColumnName("STARTHOUR");
 
-                entity.Property(e => e.Stateenum)
+                entity.Property(e => e.Stateenum).HasConversion(converterState)
                     .HasColumnName("STATEENUM")
                     .HasMaxLength(255)
                     .IsUnicode(false);

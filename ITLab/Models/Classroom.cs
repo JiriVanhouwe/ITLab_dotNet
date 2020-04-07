@@ -12,9 +12,9 @@ namespace TestDatabase.Models
         }
 
         public string Classid { get; set; }
-        public string Campus { get; set; }
+        public Campus Campus { get; set; }
         public string Maxseats { get; set; }
-        public string Roomcategory { get; set; }
+        public RoomCategory Roomcategory { get; set; }
 
         public virtual ICollection<Session> Session { get; set; }
     }
