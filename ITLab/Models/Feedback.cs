@@ -8,7 +8,7 @@ namespace TestDatabase.Models
     {
         public int Id { get; set; }
         public string Contenttext { get; set; }
-        public string AuthorUsername { get; set; }
+        public string AuthorUsername => AuthorUsernameNavigation.Username;
         public int? SessionId { get; set; }
 
         public virtual ItlabUser AuthorUsernameNavigation { get; set; }

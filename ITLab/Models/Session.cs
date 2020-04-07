@@ -24,7 +24,7 @@ namespace TestDatabase.Models
         public string Title { get; set; }
         public string Videourl { get; set; }
         public string ClassroomClassid { get; set; }
-        public string HostUsername { get; set; }
+        public string HostUsername => HostUsernameNavigation.Username;
         public int? SessionCalendarId { get; set; }
 
         public virtual Classroom ClassroomClass { get; set; }
