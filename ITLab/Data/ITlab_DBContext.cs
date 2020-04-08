@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using static ITLab.Models.ItlabUser;
 
-namespace TestDatabase.Models
+namespace ITLab.Models
 {
     public partial class ITLab_DBContext : DbContext
     {
