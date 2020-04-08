@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TestDatabase.Models
+namespace ITLab.Models
 {
     public partial class ItlabUser
     {

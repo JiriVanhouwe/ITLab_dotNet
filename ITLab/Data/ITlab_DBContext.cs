@@ -3,7 +3,7 @@ using ITLab.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using static TestDatabase.Models.ItlabUser;
+using static ITLab.Models.ItlabUser;
 
 namespace TestDatabase.Models
 {

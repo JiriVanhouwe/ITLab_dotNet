@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TestDatabase.Models
+namespace ITLab.Models
 {
     public partial class Feedback
     {
