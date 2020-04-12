@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TestDatabase.Models;
 using ITLab.Models;
 using ITLab.Data.Repositories;
 
@@ -33,10 +32,19 @@ namespace ITLab
             services.AddDbContext<ITLab_DBContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ItlabUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ITLab_DBContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddAuthentication().AddMicrosoftAccount(options => {
+                options.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+                options.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+                options.AuthorizationEndpoint = "https://login.microsoftonline.com/5cf7310e-091a-4bc5-acd7-26c721d4cccd/oauth2/v2.0/authorize";
+                options.CallbackPath = "/signin";
+                options.TokenEndpoint = "https://login.microsoftonline.com/5cf7310e-091a-4bc5-acd7-26c721d4cccd/oauth2/v2.0/token";
+            });
+
+
             services.AddScoped<IUserRepository, UserRepository>();
         }
 

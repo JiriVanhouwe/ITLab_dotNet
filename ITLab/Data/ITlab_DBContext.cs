@@ -1,5 +1,7 @@
 ﻿using System;
 using ITLab.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -32,6 +34,7 @@ namespace ITLab.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<AttendeeUser>(entity =>
             {
                 entity.HasKey(e => new { e.SessionId, e.UserUsername })
@@ -138,7 +141,7 @@ namespace ITLab.Models
                 EnumToStringConverter<UserType> converterType = new EnumToStringConverter<UserType>();
 
                 entity.HasKey(e => e.Username)
-                    .HasName("PK__ItlabUse__B15BE12FB744CF0C");
+                    .HasName("PK__ItlabUser__B15BE12FB744CF0C");
 
                 entity.Property(e => e.Username)
                     .HasColumnName("USERNAME")

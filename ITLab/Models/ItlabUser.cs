@@ -1,11 +1,12 @@
 ﻿using ITLab.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ITLab.Models
 {
-    public partial class ItlabUser
+    public partial class ItlabUser : IdentityUser
     {
         public ItlabUser()
         {
