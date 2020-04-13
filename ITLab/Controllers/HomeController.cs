@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ITLab.Models;
-using TestDatabase.Models;
 
 namespace ITLab.Controllers
 {
