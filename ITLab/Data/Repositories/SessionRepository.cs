@@ -28,6 +28,11 @@ namespace ITLab.Data.Repositories
                         .FirstOrDefault(session => session.Id == id);
         }
 
+        public Session GetFirstComingSession()
+        {
+            return _sessions.OrderBy(s => s.Eventdate).FirstOrDefault();
+        }
+
         public IList<Session> GetSessions()
         {
             return _sessions

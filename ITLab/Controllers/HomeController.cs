@@ -11,21 +11,19 @@ namespace ITLab.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IUserRepository _usersRepo;
+        private readonly ISessionRepository _sessionRepository;
 
-        public HomeController(ILogger<HomeController> logger, IUserRepository rep)
+        public HomeController(IUserRepository userRepo, ISessionRepository sessionRepo)
         {
-            _logger = logger;
-            _usersRepo = rep;
+            _usersRepo = userRepo;
+            _sessionRepository = sessionRepo;
         }
 
         public IActionResult Index()
         {
-            ItlabUser user = _usersRepo.GetById();
-            ViewData["user"] = user.Firstname + user.UserStatus;
-            //TEST COMMIT
-            return View();
+            Session session = _sessionRepository.GetFirstComingSession();
+            return View(session);
         }
 
         public IActionResult Privacy()

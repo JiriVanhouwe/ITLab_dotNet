@@ -9,6 +9,7 @@ namespace ITLab.Models
     {
         Session GetById(int id);
         IList<Session> GetSessions();
+        Session GetFirstComingSession();
         void SaveChanges();
     }
 }
