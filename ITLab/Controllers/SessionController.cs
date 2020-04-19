@@ -24,7 +24,7 @@ namespace ITLab.Controllers
                 return NotFound();
 
           //  Console.WriteLine(session.Id + " " + session.Title);
-            return View(session);
+            return View();
         }
     }
 }
