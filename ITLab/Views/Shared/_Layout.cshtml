@@ -21,25 +21,9 @@
     <script src="~/lib/fullcalendar/dist/daygrid/main.min.js"></script>
     <script src="~/lib/fullcalendar/dist/timegrid/main.min.js"></script>
     <script src="~/lib/fullcalendar/dist/interaction/main.min.js"></script>
+    <script src="~/lib/fullcalendar/dist/locales/locales-all.min.js"></script>
 
-    <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['dayGrid', 'timeGrid', 'interaction'],
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                }
-            });
-
-            calendar.render();
-        });
-
-    </script>
 </head>
 <body>
     <header>

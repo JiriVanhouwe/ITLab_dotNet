@@ -4,9 +4,35 @@
     ViewData["Title"] = "Index";
 }
 
-<script>
- // calendar script comes here
-</script>
+    <script>
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let calendarEl = document.getElementById('calendar');
+
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'nl',
+            plugins: ['dayGrid', 'timeGrid', 'interaction'],
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [
+                @foreach (var item in Model) {
+                    @:{
+                        @:title: "@item.Title",
+                        @:start: "@item.Eventdate.ToString("yyyy'-'MM'-'dd")" + "T" + "@item.Starthour.ToString(@"hh\:mm\:ss")",
+                        @:end: "@item.Eventdate.ToString("yyyy'-'MM'-'dd")" + "T" + "@item.Endhour.ToString(@"hh\:mm\:ss")"
+                    @:},
+                }
+            ]
+        });
+
+        calendar.render();
+    });
+
+    </script>
 
 <div class="text-center">
     <h1 class="display-4">De kalender</h1>
@@ -25,26 +51,27 @@
     </tr>
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @item.Title
-    </td>
-    <td>
-        @item.Description
-    </td>
-    <td>
-        @item.Eventdate.ToShortDateString()
-    </td>
-    <td>
-        @item.Starthour - @item.Endhour
-    </td>
-    <td>
-        @item.ClassroomClassid
-    </td>
-    <td>
-        @item.Id
-    </td>
-    <td><a asp-controller="Session" asp-action="Index" asp-route-id="@item.Id" class="btn btn-secondary text-right ml-5">Ga naar sessie</a></td>
-</tr>     
+        <tr>
+            <td>
+                @item.Title
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.Eventdate.ToShortDateString()
+            </td>
+            <td>
+                @item.Starthour - @item.Endhour
+            </td>
+            <td>
+                @item.ClassroomClassid
+            </td>
+            <td>
+                @item.Id
+            </td>
+            <td><a asp-controller="Session" asp-action="Index" asp-route-id="@item.Id" class="btn btn-secondary text-right ml-5">Ga naar sessie</a></td>
+        </tr>
+
     }
 </table>
