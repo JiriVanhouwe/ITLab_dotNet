@@ -9,9 +9,19 @@ namespace ITLab.Controllers
 {
     public class CalendarController : Controller
     {
+        private readonly ISessionRepository _sessionRepository;
+
+        public CalendarController(ISessionRepository sessionRepo)
+        {
+            _sessionRepository = sessionRepo;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Session> allSessions = _sessionRepository.GetSessions();
+
+            return View(allSessions);
         }
+       
     }
 }

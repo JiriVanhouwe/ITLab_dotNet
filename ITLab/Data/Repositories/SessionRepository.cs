@@ -30,7 +30,7 @@ namespace ITLab.Data.Repositories
 
         public Session GetFirstComingSession()
         {
-            return _sessions.OrderBy(s => s.Eventdate).FirstOrDefault();
+            return _sessions.Where(s => s.Eventdate >= DateTime.Now).OrderBy(s => s.Eventdate).FirstOrDefault();
         }
 
         public IList<Session> GetSessions()

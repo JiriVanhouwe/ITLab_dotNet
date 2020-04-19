@@ -24,7 +24,7 @@
                     <img class="d-block w-100" src="~/img/banner03.jpg" alt="Third slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h1>Schrijf je in</h1>
-                        <h3>en leer bij over uiteenlopende onderwerpen!</h3>
+                        <h3>en leer bij over uiteenlopende onderwerpen</h3>
                     </div>
                 </div>
             </div>
@@ -39,9 +39,12 @@
         </div>
     </div>
 
-<div>
+<div class="container">
     <table>
         <thead>
+            <tr>
+                <td>EERSTVOLGENDE SESSIE</td>
+            </tr>
             <tr>
                 <td><b>Titel:</b> @Model.Title</td>
             </tr>
@@ -56,8 +59,16 @@
             <tr>
                 <td><b>Lokaal:</b> @Model.ClassroomClassid</td>
             </tr>
+            <tr>
+                <td><b>Sessie id:</b> @Model.Id</td>
+            </tr>
+
         </tbody>
     </table>
+    
+</div>
+<div class="container">
+    <a asp-controller="Calendar" asp-action="Index" class="btn btn-secondary text-right ml-5">Bekijk de kalender</a>
 </div>
 
         <!--<div class="text-center">

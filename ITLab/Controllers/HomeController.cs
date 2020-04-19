@@ -23,18 +23,9 @@ namespace ITLab.Controllers
         public IActionResult Index()
         {
             Session session = _sessionRepository.GetFirstComingSession();
+            if (session == null)
+                return NotFound(); //TODO wat als er geen komende sessie is? Dan verandert de view?
             return View(session);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
