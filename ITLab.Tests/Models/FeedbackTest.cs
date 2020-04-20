@@ -8,11 +8,11 @@ namespace ITLab.Tests.Models
 {
     public class FeedbackTest
     {
-        /*private readonly User author;
+        /*private readonly ItlabUser author;
 
         public FeedbackTest()
         {
-            author = new User("Frank", "Deboosere", "frank.deboosere@student.hogent.be", UserType.USERITLAB, UserStatus.ACTIVE, "MooiWeer");
+            author = new ItlabUser("Frank", "Deboosere", "frank.deboosere@student.hogent.be", UserType.USERITLAB, UserStatus.ACTIVE, "MooiWeer");
         }
 
         #region CONSTRUCTOR
@@ -45,6 +45,6 @@ namespace ITLab.Tests.Models
             Assert.Equal(feedback.Content, content);
         } 
         #endregion
-        */
-    }
+        
+    }*/
 }
