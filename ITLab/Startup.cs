@@ -30,8 +30,13 @@ namespace ITLab
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+<<<<<<< Updated upstream
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+=======
+            services.AddDefaultIdentity<ItlabUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ITLab_DBContext>();
+>>>>>>> Stashed changes
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -57,7 +62,7 @@ namespace ITLab
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
