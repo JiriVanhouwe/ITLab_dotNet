@@ -24,7 +24,7 @@ namespace ITLab.Data.Repositories
            return  _users.First();
         }
 
-        public IList<ItlabUser> GetAllUsers()
+        public List<ItlabUser> GetAllUsers()
         {
             return this._users.ToList();
         }

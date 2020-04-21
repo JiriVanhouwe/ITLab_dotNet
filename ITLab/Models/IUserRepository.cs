@@ -9,6 +9,6 @@ namespace ITLab.Models
     {
 
         ItlabUser GetById();
-        IList<ItlabUser> GetAllUsers();
+        List<ItlabUser> GetAllUsers();
     }
 }
