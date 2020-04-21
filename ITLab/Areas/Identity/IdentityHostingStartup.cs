@@ -1,5 +1,5 @@
 ﻿using System;
-
+using ITLab.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;

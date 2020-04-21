@@ -24,8 +24,13 @@ namespace ITLab.Models
         public Feedback(ItlabUser author, string content)
         {
             AuthorUsernameNavigation = author;
-            AuthorUsername = author.Username();
+            AuthorUsername = author.Username;
             Contenttext = content;
+        }
+
+        protected Feedback()
+        {
+
         }
 
     }

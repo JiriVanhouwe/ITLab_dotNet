@@ -33,7 +33,7 @@ namespace ITLab
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ITLab_DBContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IUserRepository, UserRepository>();

@@ -1,11 +1,10 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using ITLab.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -18,19 +17,17 @@ namespace ITLab.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<ItlabUser> _userManager;
-        private readonly SignInManager<ItlabUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        private readonly IUserRepository _userRepo;
 
-        public LoginModel(SignInManager<ItlabUser> signInManager, 
+        public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<ItlabUser> userManager, IUserRepository repo)
+            UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _userRepo = repo;
         }
 
         [BindProperty]
@@ -82,13 +79,7 @@ namespace ITLab.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                //var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-
-                //Because we store our password in an md5 encryption we created our own password validator
-                //var result = await CustomSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                await _signInManager.SignInAsync(new ItlabUser { UserName = Input.Email, Email = Input.Email }, isPersistent: false);
-                return LocalRedirect(returnUrl);
-                /*
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -107,19 +98,11 @@ namespace ITLab.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
-                }*/
+                }
             }
 
             // If we got this far, something failed, redisplay form
             return Page();
-        }
-
-        private Task<Microsoft.AspNetCore.Identity.SignInResult> CustomSignInAsync(string email, string password, bool rememberMe, bool lockoutOnFailure)
-        {
-            //Console.WriteLine(_userRepo.GetAllUsers().Count());
-            
-            
-            throw new NotImplementedException();
         }
     }
 }

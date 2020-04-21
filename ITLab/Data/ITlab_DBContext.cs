@@ -8,7 +8,7 @@ using static ITLab.Models.ItlabUser;
 
 namespace ITLab.Models
 {
-    public partial class ITLab_DBContext : DbContext
+    public partial class ITLab_DBContext : IdentityDbContext
     {
         public ITLab_DBContext()
         {
@@ -33,6 +33,9 @@ namespace ITLab.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //This makes sure the identity tables are mapped correctly
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<AttendeeUser>(entity =>
             {
                 entity.HasKey(e => new { e.SessionId, e.UserUsername })
@@ -140,15 +143,8 @@ namespace ITLab.Models
 
                 entity.ToTable("ItlabUser");
 
-                entity.Property(e => e.UserName)
-                    .HasColumnName("USERNAME")
-                    .HasMaxLength(256)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Email)
-                    .HasColumnName("USERNAME")
-                    .HasMaxLength(256)
-                    .IsUnicode(false);
+                entity.HasKey(e => e.Username)
+                    .HasName("USERNAME");
 
                 entity.Property(e => e.Firstname)
                     .IsRequired()
