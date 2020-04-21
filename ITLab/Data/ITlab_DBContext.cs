@@ -8,11 +8,10 @@ using static ITLab.Models.ItlabUser;
 
 namespace ITLab.Models
 {
-    public partial class ITLab_DBContext : IdentityDbContext<ItlabUser>
+    public partial class ITLab_DBContext : DbContext
     {
         public ITLab_DBContext()
         {
-            
         }
 
         public ITLab_DBContext(DbContextOptions<ITLab_DBContext> options)
@@ -24,7 +23,7 @@ namespace ITLab.Models
         public virtual DbSet<Classroom> Classroom { get; set; }
         public virtual DbSet<Feedback> Feedback { get; set; }
         public virtual DbSet<Image> Image { get; set; }
-        public DbSet<ItlabUser> ItlabUser { get; set; }
+        public virtual DbSet<ItlabUser> ItlabUser { get; set; }
         public virtual DbSet<RegisterdUser> RegisterdUser { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<SessionCalendar> SessionCalendar { get; set; }
@@ -34,7 +33,6 @@ namespace ITLab.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AttendeeUser>(entity =>
             {
                 entity.HasKey(e => new { e.SessionId, e.UserUsername })
@@ -164,7 +162,7 @@ namespace ITLab.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PasswordHash)
+                entity.Property(e => e.Password)
                     .IsRequired()
                     .HasColumnName("PASSWORD")
                     .HasMaxLength(255)
@@ -312,7 +310,6 @@ namespace ITLab.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
-
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

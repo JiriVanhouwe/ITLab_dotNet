@@ -8,7 +8,7 @@ namespace ITLab.Tests.Models
 {
     public class UserTest
     {
-
+		/*
         #region CONSTRUCTOR
         [Theory]
         [InlineData("donald", "troemp", "donald.troemp@student.hogent.be", UserType.USERITLAB, UserStatus.ACTIVE, "AmericaIsGreat")]
@@ -70,7 +70,7 @@ namespace ITLab.Tests.Models
         {
 			Assert.Throws<ArgumentException>(() => new User(firstName, lastName, userName, userType, userStatus, password));
         }*/
-        #endregion
+        //#endregion
 
     }
 }

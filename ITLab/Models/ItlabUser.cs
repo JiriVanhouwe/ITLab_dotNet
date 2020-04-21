@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ITLab.Models
 {
-    public partial class ItlabUser : IdentityUser
+    public partial class ItlabUser
     {
         public ItlabUser()
         {
@@ -16,10 +16,10 @@ namespace ITLab.Models
             Session = new HashSet<Session>();
         }
 
-        public override string UserName { get; set; }
+        public string Username { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public override string PasswordHash { get; set; }
+        public string Password { get; set; }
         public UserStatus UserStatus { get; set; }
         public UserType UserType { get; set; }
 

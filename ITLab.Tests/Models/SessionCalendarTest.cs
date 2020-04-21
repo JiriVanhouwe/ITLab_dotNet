@@ -7,7 +7,7 @@ using Xunit;
 namespace ITLab.Tests.Models
 {
     public class SessionCalendarTest
-    {
+    {/*
         private readonly DateTime _validStartDate;
         private readonly DateTime _validEndDate;
         private readonly IEnumerable<Session> _sessions;
@@ -58,7 +58,7 @@ namespace ITLab.Tests.Models
         }
 
 
-        #endregion
+        #endregion*/
 
     }
 

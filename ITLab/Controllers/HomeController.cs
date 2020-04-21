@@ -11,28 +11,21 @@ namespace ITLab.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IUserRepository _usersRepo;
+        private readonly ISessionRepository _sessionRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IUserRepository userRepo, ISessionRepository sessionRepo)
         {
-            _logger = logger;
+            _usersRepo = userRepo;
+            _sessionRepository = sessionRepo;
         }
 
         public IActionResult Index()
         {
-            //TEST COMMIT
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            Session session = _sessionRepository.GetFirstComingSession();
+            if (session == null)
+                return NotFound(); //TODO wat als er geen komende sessie is? Dan verandert de view?
+            return View(session);
         }
     }
 }

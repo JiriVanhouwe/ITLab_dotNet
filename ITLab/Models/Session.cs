@@ -1,7 +1,48 @@
-﻿using System;
+﻿using ITLab.Models;
+using System;
+using System.Collections.Generic;
+
+namespace ITLab.Models
+{
+    public partial class Session
+    {
+        public Session()
+        {
+            AttendeeUser = new HashSet<AttendeeUser>();
+            Feedback = new HashSet<Feedback>();
+            RegisterdUser = new HashSet<RegisterdUser>();
+        }
+
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public TimeSpan Endhour { get; set; }
+        public DateTime Eventdate { get; set; }
+        public int Maxattendee { get; set; }
+        public string Nameguest { get; set; }
+        public TimeSpan Starthour { get; set; }
+        public State Stateenum { get; set; }
+        public string Title { get; set; }
+        public string Videourl { get; set; }
+        public string ClassroomClassid { get; set; }
+        public string HostUsername { get; set; }
+        public int? SessionCalendarId { get; set; }
+
+        public virtual Classroom ClassroomClass { get; set; }
+        public virtual ItlabUser HostUsernameNavigation { get; set; }
+        public virtual SessionCalendar SessionCalendar { get; set; }
+        public virtual ICollection<AttendeeUser> AttendeeUser { get; set; }
+        public virtual ICollection<Feedback> Feedback { get; set; }
+        public virtual ICollection<RegisterdUser> RegisterdUser { get; set; }
+    }
+
+   
+}
+
+/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestDatabase.Models;
 
 namespace ITLab.Models
 {
@@ -40,3 +81,4 @@ namespace ITLab.Models
         }
     }
 }
+*/
