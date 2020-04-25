@@ -3,12 +3,12 @@
 
 // Write your JavaScript code.
 function initialize() {
-    
+    console.log("test");
 }
 
 window.onscroll = changeNavigation;
 function changeNavigation() {
-    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    if (document.body.scrollTop > 25 || document.documentElement.scrollTop > 25) {
         document.getElementById("navigation").classList.remove("emptyNav");
         document.getElementById("navigation").classList.add("fullNav");
     } else {

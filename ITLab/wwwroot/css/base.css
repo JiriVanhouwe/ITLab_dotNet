@@ -1,4 +1,82 @@
-﻿#navigation {
-    background-color: #60adf7 !important;
-    position: relative;
+﻿/*.carousel .item {
+    max-height: 15px;
+}
+
+.item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 15px;
+}*/
+
+/*.carousel-content {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    z-index: 20;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+
+.carousel-inner {
+    max-height: 600px !important;
+}*/
+
+
+/* ------- LANDINGPAGE -------- */
+/* --- header ---- */
+#landing .header {
+    background-image: url("https://pixabay.com/get/57e2dd434f51a414eade8174c32a3177083edbed54597341742d73.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+}
+
+#landing .header {
+    width: 100%;
+    padding-top: 240px;
+}
+
+#landing .header .text-container {
+    max-width: 42%;
+    margin: 0 auto;
+}
+
+#landing .header .typewriter h1 {
+    color: white;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid dodgerblue; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: dodgerblue;
+    }
+}
+
+
+/* --- newest session ---- */
+#landing #newest-session {
+    text-align: center;
+    padding-top: 50px;
 }
