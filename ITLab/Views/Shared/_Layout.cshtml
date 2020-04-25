@@ -14,8 +14,7 @@
     <link href="~/lib/fullcalendar/dist/daygrid/main.min.css" rel="stylesheet" />
     <link href="~/lib/fullcalendar/dist/timegrid/main.min.css" rel="stylesheet" />
 
-    <link href="~/css/site.css" rel="stylesheet" />
-    <link href="~/css/base.css" rel="stylesheet" />
+
     <!-- Fullcalender -->
     <script src="~/lib/fullcalendar/dist/core/main.min.js"></script>
     <script src="~/lib/fullcalendar/dist/daygrid/main.min.js"></script>
@@ -23,13 +22,18 @@
     <script src="~/lib/fullcalendar/dist/interaction/main.min.js"></script>
     <script src="~/lib/fullcalendar/dist/locales/locales-all.min.js"></script>
 
+    <link href="~/css/base.css" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder ID="NavStyle" runat="server">
+    </asp:ContentPlaceHolder>
+
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 emptyNav" id="navigation">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ITLab</a>
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">ITLab</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -38,10 +42,10 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Calendar" asp-action="Index">Kalender</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Calendar" asp-action="Index">Kalender</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Instellingen</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Instellingen</a>
                         </li>
                     </ul>
                 </div>

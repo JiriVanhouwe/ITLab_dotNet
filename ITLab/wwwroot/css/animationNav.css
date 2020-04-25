@@ -1,0 +1,16 @@
+﻿#navigation {
+    overflow: hidden;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    z-index: 10;
+    transition: 0.5s;
+}
+
+.emptyNav {
+    background-color: transparent !important;
+}
+
+.fullNav {
+    background-color: #60adf7 !important;
+}
