@@ -23,8 +23,14 @@ namespace ITLab.Controllers
             if (session == null)
                 return NotFound();
 
-          //  Console.WriteLine(session.Id + " " + session.Title);
+            return View(session);
+        }
+
+        public IActionResult Register()
+        {
             return View();
         }
+
+
     }
 }
