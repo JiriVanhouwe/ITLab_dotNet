@@ -13,13 +13,11 @@ namespace ITLab.Controllers
     {
         private ISessionRepository _sessionRepository;
         private readonly IUserRepository _usersRepository;
-        private UserManager<IdentityUser> _userManager;
 
-        public SessionController(ISessionRepository sessionRepo, IUserRepository userRepo, UserManager<IdentityUser> userManager)
+        public SessionController(ISessionRepository sessionRepo, IUserRepository userRepo)
         {
             _sessionRepository = sessionRepo;
             _usersRepository = userRepo;
-            _userManager = userManager;
         }
 
 
@@ -40,22 +38,29 @@ namespace ITLab.Controllers
             return View(session);
         }
 
-        public IActionResult RegisterForSession(int id) //TODO
+        [HttpPost]
+        public IActionResult RegisterForSession(int id) //nog niet getest
         {
             Session session = _sessionRepository.GetById(id);
-            
-            try { 
+            if (session == null)
+                return NotFound();
 
-            TempData["message"] = $"Je bent ingeschreven voor deze sessie.";
+            var loggedInUser = _usersRepository.LoggedInUser;
+
+            try
+            {
+                session.AddRegisteredUser(new RegisterdUser(session, loggedInUser));
+                _sessionRepository.SaveChanges();
+                _usersRepository.SaveChanges();
+
+                    TempData["message"] = $"Je bent ingeschreven voor deze sessie.";
                  }
                 catch
                 {
                     TempData["error"] = "Sorry, er ging iets mis...";
                 }
 
-            return View();
+            return View(nameof(Index));
         }
-
-
     }
 }

@@ -11,7 +11,7 @@
             <hr class="my-4">
             <p class="lead">Alles wat je moet weten</p>
             <div class="card" style="width: 50%;">
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush list-group-item-dark">
                     <li style="margin-bottom:5px;" class="list-group-item">Spreker: <strong>@Model.Nameguest</strong></li>
                     <li style="margin-bottom:5px;" class="list-group-item">Wanneer: @Model.Eventdate.ToShortDateString() van @(string.Format("{0:00}:{1:00}", Model.Starthour.Hours, Model.Endhour.Minutes)) tot @(string.Format("{0:00}:{1:00}", Model.Endhour.Hours, Model.Endhour.Minutes))</li>
                     <li style="margin-bottom:5px;" class="list-group-item">Waar: @Model.ClassroomClassid</li>
@@ -42,10 +42,20 @@
                     }
                     else
                     {
-                <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
-                <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
-                    }   
+                    <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
+                    <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
                 }
-             </p>
+                }
+
+            <div class="container">
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success">@TempData["message"]</div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-warning">@TempData["error"]</div>
+                }
+            </div>
             </div>
     </div>

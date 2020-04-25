@@ -20,14 +20,19 @@ namespace ITLab.Data.Repositories
             _users = context.ItlabUser;
         }
 
-        public ItlabUser GetById()
+        public ItlabUser GetById(string id)
         {
-           return  _users.First();
+            return _users.FirstOrDefault(u => u.Username == id);
         }
 
         public List<ItlabUser> GetAllUsers()
         {
             return this._users.ToList();
+        }
+
+        public void SaveChanges()
+        {
+            _dbContext.SaveChanges();
         }
     }
 }
