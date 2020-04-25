@@ -1,17 +1,12 @@
 ﻿using ITLab.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ITLab.Models
 {
     public partial class Session
     {
-        public Session()
-        {
-            AttendeeUser = new HashSet<AttendeeUser>();
-            Feedback = new HashSet<Feedback>();
-            RegisterdUser = new HashSet<RegisterdUser>();
-        }
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -33,6 +28,26 @@ namespace ITLab.Models
         public virtual ICollection<AttendeeUser> AttendeeUser { get; set; }
         public virtual ICollection<Feedback> Feedback { get; set; }
         public virtual ICollection<RegisterdUser> RegisterdUser { get; set; }
+
+        public Session()
+        {
+            AttendeeUser = new HashSet<AttendeeUser>();
+            Feedback = new HashSet<Feedback>();
+            RegisterdUser = new HashSet<RegisterdUser>();
+        }
+
+        public void AddRegisteredUser(RegisterdUser user)
+        {
+            RegisterdUser.Add(user);
+        }
+
+        public bool IsUserRegistered(string userName)
+        {
+            if (RegisterdUser.Any(u => u.UserUsername == userName))
+                return true;
+            else
+                return false;
+        }
 
 
         public int SeatsAvailable()

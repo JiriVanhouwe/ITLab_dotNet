@@ -63,7 +63,7 @@
                 @item.Eventdate.ToShortDateString()
             </td>
             <td>
-                @item.Starthour - @item.Endhour
+                @item.Starthour - @item.Endhour.ToString() - @(string.Format("{0:00}:{1:00}", item.Endhour.Hours, item.Endhour.Minutes))
             </td>
             <td>
                 @item.ClassroomClassid
