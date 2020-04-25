@@ -9,9 +9,10 @@ namespace ITLab.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        public ItlabUser LoggedInUser { get; set; }
+
         private readonly ITLab_DBContext _dbContext;
         private readonly DbSet<ItlabUser> _users;
-
 
         public UserRepository(ITLab_DBContext context)
         {
