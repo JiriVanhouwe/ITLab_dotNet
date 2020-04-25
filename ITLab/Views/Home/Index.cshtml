@@ -55,8 +55,8 @@
         
         <div id="newest-session">
             <div class="container">
-                <h1>Eerstvolgende sessie</h1>
-                <table>
+                <h1>Eerstvolgende sessies</h1>
+                @*<table>
                     <thead>
                         <tr>
                             <td>EERSTVOLGENDE SESSIE</td>
@@ -80,8 +80,84 @@
                         </tr>
 
                     </tbody>
-                </table>
-                <a asp-controller="Calendar" asp-action="Index" class="btn btn-secondary text-right ml-5">Bekijk de kalender</a>
+                </table>*@
+                <!--Carousel Wrapper-->
+                <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+                    <!--/.Controls-->
+                    <!--Indicators-->
+                    <!--Slides-->
+                    <div class="carousel-inner" role="listbox">
+
+                        <!--First slide-->
+                        <div class="carousel-item active">
+
+                            <div class="col-md-3" style="float:left">
+                                <div class="card mb-2">
+                                    <img class="card-img-top" src="~/img/itlab-logo.jpg" />
+                                    <div class="card-body">
+                                        <h4 class="card-title">Card title</h4>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Meer informatie</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" style="float:left">
+                                <div class="card mb-2">
+                                    <img class="card-img-top" src="~/img/itlab-logo.jpg" />
+                                    <div class="card-body">
+                                        <h4 class="card-title">Card title</h4>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Meer informatie</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" style="float:left">
+                                <div class="card mb-2">
+                                    <img class="card-img-top" src="~/img/itlab-logo.jpg" />
+                                    <div class="card-body">
+                                        <h4 class="card-title">Card title</h4>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Meer informatie</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" style="float:left">
+                                <div class="card mb-2">
+                                    <img class="card-img-top" src="~/img/itlab-logo.jpg" />
+                                    <div class="card-body">
+                                        <h4 class="card-title">Card title</h4>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's content.
+                                        </p>
+                                        <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Meer informatie</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--/.First slide-->
+
+
+
+                    </div>
+                    <!--/.Slides-->
+
+                </div>
+                <!--/.Carousel Wrapper-->
+                <a class="btn btn-primary mt-2 mb-2" asp-controller="Calendar" asp-action="Index" role="button">Bekijk de volledige kalender</a>
 
             </div>
         </div>

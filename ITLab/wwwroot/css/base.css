@@ -80,3 +80,7 @@
     text-align: center;
     padding-top: 50px;
 }
+
+#landing #newest-session h1 {
+    margin-bottom: 50px;
+}
