@@ -9,9 +9,10 @@ namespace ITLab.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        public ItlabUser LoggedInUser { get; set; }
+
         private readonly ITLab_DBContext _dbContext;
         private readonly DbSet<ItlabUser> _users;
-
 
         public UserRepository(ITLab_DBContext context)
         {
@@ -19,14 +20,19 @@ namespace ITLab.Data.Repositories
             _users = context.ItlabUser;
         }
 
-        public ItlabUser GetById()
+        public ItlabUser GetById(string id)
         {
-           return  _users.First();
+            return _users.FirstOrDefault(u => u.Username == id);
         }
 
         public List<ItlabUser> GetAllUsers()
         {
             return this._users.ToList();
+        }
+
+        public void SaveChanges()
+        {
+            _dbContext.SaveChanges();
         }
     }
 }
