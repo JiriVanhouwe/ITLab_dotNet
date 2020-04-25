@@ -12,24 +12,39 @@
             <p class="lead">Alles wat je moet weten</p>
             <div class="card" style="width: 50%;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Spreker: <strong>@Model.Nameguest</strong></li>
-                    <li class="list-group-item">Wanneer: @Model.Eventdate.ToShortDateString() van @(string.Format("{0:00}:{1:00}", Model.Starthour.Hours, Model.Endhour.Minutes)) tot @(string.Format("{0:00}:{1:00}", Model.Endhour.Hours, Model.Endhour.Minutes))</li>
-                    <li class="list-group-item">Waar: @Model.ClassroomClassid</li>
+                    <li style="margin-bottom:5px;" class="list-group-item">Spreker: <strong>@Model.Nameguest</strong></li>
+                    <li style="margin-bottom:5px;" class="list-group-item">Wanneer: @Model.Eventdate.ToShortDateString() van @(string.Format("{0:00}:{1:00}", Model.Starthour.Hours, Model.Endhour.Minutes)) tot @(string.Format("{0:00}:{1:00}", Model.Endhour.Hours, Model.Endhour.Minutes))</li>
+                    <li style="margin-bottom:5px;" class="list-group-item">Waar: @Model.ClassroomClassid</li>
                     <li class="list-group-item">Aantal inschrijvingen: @Model.RegisterdUser.Count/@Model.Maxattendee</li>
                 </ul>
             </div>
             <p class="lead" style="margin-top: 10px;">
-                @if (0 == 0) {
-                @if (Model.SeatsAvailable() > 0)
+
+                @if ((bool)ViewData["NoUserLoggedIn"] == true)
                 {
-                    <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session" asp-action="RegisterForSession" role="button">Schrijf je in</a>
                     <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
                 }
                 else
                 {
+
+                    @if (Model.SeatsAvailable() > 0)
+                    {
+                        @if ((bool)ViewData["UserAlreadyRegistered"] == false)
+                        {
+                            <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session" asp-action="RegisterForSession" role="button">Inschrijven</a>
+                            <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success" style="margin-right: 10px;" href="#" role="button">Uitschrijven</a>
+                            <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
+                        }
+                    }
+                    else
+                    {
                 <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
                 <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
-                }   
+                    }   
                 }
              </p>
             </div>

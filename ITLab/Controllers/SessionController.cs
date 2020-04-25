@@ -29,15 +29,18 @@ namespace ITLab.Controllers
             if (session == null)
                 return NotFound();
 
-            var userName =  _userManager.FindByIdAsync(User.Identity.Name);
-
-            // String userName = User.Identity.Name;
-            //ViewData["UserAlreadyRegistered"] = session.IsUserRegistered(userName);
+            var loggedInUser = _usersRepository.LoggedInUser;
+            if (loggedInUser == null) //wanneer er niemand ingelogd is
+                ViewData["NoUserLoggedIn"] = true;
+            else
+            {
+                ViewData["UserAlreadyRegistered"] = session.IsUserRegistered(_usersRepository.LoggedInUser.Username); //de ingelogde user is al geregistreerd voor deze sessie
+            }
 
             return View(session);
         }
 
-        public IActionResult RegisterForSession(int id)
+        public IActionResult RegisterForSession(int id) //TODO
         {
             Session session = _sessionRepository.GetById(id);
             
