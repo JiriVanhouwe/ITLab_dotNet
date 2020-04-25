@@ -31,7 +31,7 @@ namespace ITLab
         {
             services.AddDbContext<ITLab_DBContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration["connectionDataBaseString"]));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ITLab_DBContext>();
             services.AddControllersWithViews();
@@ -47,6 +47,7 @@ namespace ITLab
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                
             }
             else
             {
