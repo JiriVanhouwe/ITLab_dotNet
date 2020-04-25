@@ -7,7 +7,7 @@ namespace ITLab.Models
 {
     public interface IUserRepository
     {
-
+        public ItlabUser LoggedInUser { get; set; }
         ItlabUser GetById();
         List<ItlabUser> GetAllUsers();
     }

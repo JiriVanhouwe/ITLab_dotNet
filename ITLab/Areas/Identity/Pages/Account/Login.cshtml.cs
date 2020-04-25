@@ -151,6 +151,7 @@ namespace ITLab.Areas.Identity.Pages.Account
                             await _userManager.CreateAsync(identityUser);
                             await _userManager.SetUserNameAsync(identityUser, user.Firstname + "" + user.Lastname);
                             await _signInManager.SignInAsync(identityUser, isPersistent: false);
+                            _userRepo.LoggedInUser = user;
                             Console.WriteLine("Great succes");
                             return SignInResult.Success;
                         }
