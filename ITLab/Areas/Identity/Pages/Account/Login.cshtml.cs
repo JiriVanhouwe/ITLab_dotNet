@@ -147,9 +147,15 @@ namespace ITLab.Areas.Identity.Pages.Account
                         if (user.Username.Equals(email) && user.Password.Equals(hashedPassword))
                         {
                             //If the combination is valid we can create an identityuser object and login the user
-                            IdentityUser identityUser = new IdentityUser(email) { Id = email, PasswordHash = password };
-                            await _userManager.CreateAsync(identityUser);
-                            await _userManager.SetUserNameAsync(identityUser, user.Firstname + "" + user.Lastname);
+
+                            //Firstly we check if there's already a user object with the given email in the AspNetUsers table
+                            IdentityUser identityUser = _userManager.FindByIdAsync(email).Result;
+                            if (identityUser == null)
+                            {
+                                identityUser = new IdentityUser(email) { Id = email, PasswordHash = password };
+                                await _userManager.CreateAsync(identityUser);
+                                await _userManager.SetUserNameAsync(identityUser, user.Firstname + "" + user.Lastname);
+                            }
                             await _signInManager.SignInAsync(identityUser, isPersistent: false);
                             _userRepo.LoggedInUser = user;
                             Console.WriteLine("Great succes");
