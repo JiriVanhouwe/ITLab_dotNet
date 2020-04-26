@@ -152,10 +152,12 @@ namespace ITLab.Areas.Identity.Pages.Account
                             IdentityUser identityUser = _userManager.FindByIdAsync(email).Result;
                             if (identityUser == null)
                             {
+                                //If that isn't the case we create a new one that gets saved in the AspNetUsers table
                                 identityUser = new IdentityUser(email) { Id = email, PasswordHash = password };
                                 await _userManager.CreateAsync(identityUser);
                                 await _userManager.SetUserNameAsync(identityUser, user.Firstname + "" + user.Lastname);
                             }
+                            //Finally we can perform the actual login and tell the userRepo which user is logged in
                             await _signInManager.SignInAsync(identityUser, isPersistent: false);
                             _userRepo.LoggedInUser = user;
                             Console.WriteLine("Great succes");
