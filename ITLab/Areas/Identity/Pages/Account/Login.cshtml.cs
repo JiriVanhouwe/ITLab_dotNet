@@ -153,7 +153,7 @@ namespace ITLab.Areas.Identity.Pages.Account
                             if (identityUser == null)
                             {
                                 //If that isn't the case we create a new one that gets saved in the AspNetUsers table
-                                identityUser = new IdentityUser(email) { Id = email, PasswordHash = password };
+                                identityUser = new IdentityUser(email) { Id = email, PasswordHash = hashedPassword };
                                 await _userManager.CreateAsync(identityUser);
                                 await _userManager.SetUserNameAsync(identityUser, user.Firstname + "" + user.Lastname);
                             }
