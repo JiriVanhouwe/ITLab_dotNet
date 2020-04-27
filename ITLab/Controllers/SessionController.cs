@@ -51,7 +51,7 @@ namespace ITLab.Controllers
 
             try
             {
-                session.AddRegisteredUser(new RegisterdUser(session, loggedInUser));
+                session.AddRegisteredUser(loggedInUser);
                 Console.WriteLine("Hier1");
                 _sessionRepository.SaveChanges();
                 Console.WriteLine("Hier2");

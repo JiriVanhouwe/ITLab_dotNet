@@ -36,9 +36,9 @@ namespace ITLab.Models
             RegisterdUser = new HashSet<RegisterdUser>();
         }
 
-        public void AddRegisteredUser(RegisterdUser user)
+        public void AddRegisteredUser(ItlabUser user)
         {
-            RegisterdUser.Add(user);
+            RegisterdUser.Add(new RegisterdUser(this, user));
         }
 
         public bool IsUserRegistered(string userName)
