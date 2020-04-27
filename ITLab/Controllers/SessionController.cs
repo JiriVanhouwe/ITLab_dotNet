@@ -36,11 +36,13 @@ namespace ITLab.Controllers
                 ViewData["NoUserLoggedIn"] = false;
                 ViewData["UserAlreadyRegistered"] = session.IsUserRegistered(IUserRepository.LoggedInUser.Username); //de ingelogde user is al geregistreerd voor deze sessie
             }
+           
+            ViewData["SessionIsFinshed"] = session.Stateenum.Equals(State.FINISHED);
+            ViewData["UserAtend"] = session.AttendeeUser.FirstOrDefault(e => e.UserUsernameNavigation.Equals(loggedInUser)) != null;
 
             return View(session);
         }
 
-        [HttpPost]
         public IActionResult RegisterForSession(int id) //TODO werkt nog niet
         {
             Session session = _sessionRepository.GetById(id);
@@ -51,22 +53,31 @@ namespace ITLab.Controllers
 
             try
             {
-                session.AddRegisteredUser(loggedInUser);
-                Console.WriteLine("Hier1");
+                if(session.RegisterdUser.FirstOrDefault( e => e.UserUsernameNavigation.Equals(loggedInUser)) == null)
+                {
+                    session.AddRegisteredUser(loggedInUser);
+                    TempData["message"] = $"Je bent ingeschreven voor deze sessie.";
+                }
+                else
+                {
+                    session.RemoveRegisteredUser(loggedInUser);
+                    TempData["message"] = $"Je bent uitgeschreven voor deze sessie.";
+                }
+                
+                
                 _sessionRepository.SaveChanges();
-                Console.WriteLine("Hier2");
-                _usersRepository.SaveChanges();
-                Console.WriteLine("Hier3");
 
-                TempData["message"] = $"Je bent ingeschreven voor deze sessie.";
+                _usersRepository.SaveChanges();
+                
+
+                
                  }
                 catch
                 {
                     TempData["error"] = "Sorry, er ging iets mis...";
                 }
 
-            Console.WriteLine("Hier4");
-            return RedirectToAction(nameof(Index), id);
+            return RedirectToAction("index", new {  id });
         }
 
 

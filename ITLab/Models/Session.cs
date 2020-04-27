@@ -41,6 +41,11 @@ namespace ITLab.Models
             RegisterdUser.Add(new RegisterdUser(this, user));
         }
 
+        public void RemoveRegisteredUser(ItlabUser user)
+        {
+            RegisterdUser.Remove(RegisterdUser.First(e => e.UserUsername == user.Username));
+        }
+
         public bool IsUserRegistered(string userName)
         {
             if (RegisterdUser.Any(u => u.UserUsername == userName))
