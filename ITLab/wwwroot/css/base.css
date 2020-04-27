@@ -26,7 +26,7 @@
 /* ------- LANDINGPAGE -------- */
 /* --- header ---- */
 #landing .header {
-    background-image: url("https://pixabay.com/get/57e2dd434f51a414eade8174c32a3177083edbed54597341742d73.jpg");
+    background-image: url('../img/background-landingpage.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     height: 500px;
