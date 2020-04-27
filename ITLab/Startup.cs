@@ -34,6 +34,7 @@ namespace ITLab
                     Configuration["connectionDataBaseString"]));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ITLab_DBContext>();
+            services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IUserRepository, UserRepository>();

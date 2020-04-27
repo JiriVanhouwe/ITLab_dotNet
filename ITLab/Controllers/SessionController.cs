@@ -27,13 +27,14 @@ namespace ITLab.Controllers
             if (session == null)
                 return NotFound();
 
-            ItlabUser loggedInUser = _usersRepository.LoggedInUser;
+            ItlabUser loggedInUser = IUserRepository.LoggedInUser;
             //ViewData["ingelogdeuser"] = loggedInUser.Firstname + loggedInUser.Lastname;
             if (loggedInUser == null) //wanneer er niemand ingelogd is
                 ViewData["NoUserLoggedIn"] = true;
             else
             {
-                ViewData["UserAlreadyRegistered"] = session.IsUserRegistered(_usersRepository.LoggedInUser.Username); //de ingelogde user is al geregistreerd voor deze sessie
+                ViewData["NoUserLoggedIn"] = false;
+                ViewData["UserAlreadyRegistered"] = session.IsUserRegistered(IUserRepository.LoggedInUser.Username); //de ingelogde user is al geregistreerd voor deze sessie
             }
 
             return View(session);
@@ -46,7 +47,7 @@ namespace ITLab.Controllers
             if (session == null)
                 return NotFound();
 
-            var loggedInUser = _usersRepository.LoggedInUser;
+            var loggedInUser = IUserRepository.LoggedInUser;
 
             try
             {

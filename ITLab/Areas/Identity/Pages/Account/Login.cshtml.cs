@@ -24,7 +24,7 @@ namespace ITLab.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        private readonly IUserRepository _userRepo;
+        private IUserRepository _userRepo;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
@@ -159,7 +159,7 @@ namespace ITLab.Areas.Identity.Pages.Account
                             }
                             //Finally we can perform the actual login and tell the userRepo which user is logged in
                             await _signInManager.SignInAsync(identityUser, isPersistent: false);
-                            _userRepo.LoggedInUser = user;
+                            IUserRepository.LoggedInUser = user;
                             Console.WriteLine("Great succes");
                             return SignInResult.Success;
                         }

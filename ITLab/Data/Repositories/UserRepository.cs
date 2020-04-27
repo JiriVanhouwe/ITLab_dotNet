@@ -1,4 +1,6 @@
 ﻿using ITLab.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,15 +11,23 @@ namespace ITLab.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public ItlabUser LoggedInUser { get; set; }
+        public static ItlabUser LoggedInUser { get; set; }
 
         private readonly ITLab_DBContext _dbContext;
         private readonly DbSet<ItlabUser> _users;
 
-        public UserRepository(ITLab_DBContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public UserRepository(ITLab_DBContext context, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = context;
             _users = context.ItlabUser;
+
+            //These are used to get the current logged in user
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
+            addLoggedInUser();
         }
 
         public ItlabUser GetById(string id)
@@ -33,6 +43,14 @@ namespace ITLab.Data.Repositories
         public void SaveChanges()
         {
             _dbContext.SaveChanges();
+        }
+
+        private void addLoggedInUser()
+        {
+            //Because of cookies a user can already be signed in when the application opens,
+            //when this is the case, the loggedInUser in this class won't be set. Therefor we have to check manually if this is the case.
+            var user = _httpContextAccessor.HttpContext.User;
+            IUserRepository.LoggedInUser = GetById(_userManager.GetUserId(user));
         }
     }
 }
