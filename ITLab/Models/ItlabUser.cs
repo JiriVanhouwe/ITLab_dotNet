@@ -24,7 +24,7 @@ namespace ITLab.Models
         public UserType UserType { get; set; }
 
  
-
+        
         public virtual ICollection<AttendeeUser> AttendeeUser { get; set; }
         public virtual ICollection<Feedback> Feedback { get; set; }
         public virtual ICollection<RegisterdUser> RegisterdUser { get; set; }

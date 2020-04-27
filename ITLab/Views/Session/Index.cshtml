@@ -34,7 +34,7 @@
                     {
                         @if ((bool)ViewData["UserAlreadyRegistered"] == false)
                         {
-                            <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session" asp-action="RegisterForSession" role="button">Inschrijven</a>
+                            <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session" asp-action="RegisterForSession" asp-route-id="@Model.Id" role="button">Inschrijven</a>
                             <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
                         }
                         else
@@ -64,3 +64,4 @@
                 </div>
             </div>
         </div>
+

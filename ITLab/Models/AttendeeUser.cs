@@ -10,5 +10,21 @@ namespace ITLab.Models
 
         public virtual Session Session { get; set; }
         public virtual ItlabUser UserUsernameNavigation { get; set; }
+
+
+        public AttendeeUser()
+        {
+
+        }
+
+        public AttendeeUser(Session session, ItlabUser user)
+        {
+            Session = session;
+            SessionId = session.Id;
+            UserUsernameNavigation = user;
+            UserUsername = user.Username;
+        }
     }
+
+
 }
