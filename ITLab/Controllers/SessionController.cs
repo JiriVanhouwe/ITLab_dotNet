@@ -27,7 +27,8 @@ namespace ITLab.Controllers
             if (session == null)
                 return NotFound();
 
-            var loggedInUser = _usersRepository.LoggedInUser;
+            ItlabUser loggedInUser = _usersRepository.LoggedInUser;
+            //ViewData["ingelogdeuser"] = loggedInUser.Firstname + loggedInUser.Lastname;
             if (loggedInUser == null) //wanneer er niemand ingelogd is
                 ViewData["NoUserLoggedIn"] = true;
             else
@@ -62,5 +63,7 @@ namespace ITLab.Controllers
 
             return View(nameof(Index));
         }
+
+
     }
 }

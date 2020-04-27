@@ -3,8 +3,11 @@
 @{
     ViewData["Title"] = "Index";
 }
+    <asp:ContentPlaceHolder ID="NavStyle" runat="server">
+        <link href="~/css/normalNav.css" rel="stylesheet" />
+    </asp:ContentPlaceHolder>
 
-    <div class="container">
+    <div class="container" style="margin-top: 10px;">
         <div class="jumbotron">
             <h1 class="display-4">@Model.Title</h1>
             <p class="lead">@Model.Description</p>
@@ -45,17 +48,19 @@
                     <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
                     <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
                 }
-                }
 
-            <div class="container">
-                @if (TempData["message"] != null)
-                {
-                    <div class="alert alert-success">@TempData["message"]</div>
                 }
-                @if (TempData["error"] != null)
-                {
-                    <div class="alert alert-warning">@TempData["error"]</div>
-                }
+                <a class="btn btn-primary" asp-controller="Feedback" asp-action="Index" asp-route-id="@Model.Id" role="button">Feedback</a>
+
+                <div class="container">
+                    @if (TempData["message"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["message"]</div>
+                    }
+                    @if (TempData["error"] != null)
+                    {
+                        <div class="alert alert-warning">@TempData["error"]</div>
+                    }
+                </div>
             </div>
-            </div>
-    </div>
+        </div>

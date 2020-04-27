@@ -1,0 +1,40 @@
+﻿@model ITLab.Models.Session
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<asp:ContentPlaceHolder ID="NavStyle" runat="server">
+    <link href="~/css/normalNav.css" rel="stylesheet" />
+</asp:ContentPlaceHolder>
+
+
+<div class="container" style="margin-top: 10px;">
+    <div class="jumbotron">
+        <h4 class="display-4">@Model.Title</h4>
+
+        <div class="container">
+            <div>
+                <img src="~/img/feedback.png" alt="feedback">
+            </div>
+
+            <form>
+                <div>
+                    <div class="form-group">
+                        <label for="feedback">Laat je ons weten hoe je de sessie vond?</label>
+                        <textarea class="form-control" id="feedback" rows="3"></textarea>
+                    </div>
+
+                    <div>
+                        <a class="btn btn-success" style="margin-right: 10px;" href="#" role="button">Verstuur</a>
+                        <a class="btn btn-primary" asp-controller="Session" asp-action="Index" asp-route-id="@Model.Id" role="button">Terug</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+
+
+
