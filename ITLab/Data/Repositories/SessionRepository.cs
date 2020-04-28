@@ -23,7 +23,7 @@ namespace ITLab.Data.Repositories
         {
             return _sessions
                         .Where(session => session.SessionCalendar.Startdate <= DateTime.Now && session.SessionCalendar.Enddate >= DateTime.Now)
-                        .Include(session => session.RegisterdUser)
+                        .Include(session => session.RegisterdUser).ThenInclude(e => e.UserUsernameNavigation)
                         .Include(session => session.ClassroomClass)
                         .FirstOrDefault(session => session.Id == id);
         }

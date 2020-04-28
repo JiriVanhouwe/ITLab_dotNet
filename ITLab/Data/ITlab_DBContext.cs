@@ -58,7 +58,7 @@ namespace ITLab.Models
                     .WithMany(p => p.AttendeeUser)
                     .HasForeignKey(d => d.UserUsername)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("ttendeeUserserusername");
+                    .HasConstraintName("AttendeeUserserusername");
             });
 
             modelBuilder.Entity<Classroom>(entity =>
@@ -199,7 +199,7 @@ namespace ITLab.Models
                     .WithMany(p => p.RegisterdUser)
                     .HasForeignKey(d => d.UserUsername)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RgisterdUsersrusername");
+                    .HasConstraintName("RegisterdUserusername");
             });
 
             modelBuilder.Entity<Session>(entity =>

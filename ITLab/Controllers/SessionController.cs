@@ -38,7 +38,7 @@ namespace ITLab.Controllers
             }
            
             ViewData["SessionIsFinshed"] = session.Stateenum.Equals(State.FINISHED);
-            ViewData["UserAtend"] = session.AttendeeUser.FirstOrDefault(e => e.UserUsernameNavigation.Equals(loggedInUser)) != null;
+            ViewData["UserAtend"] = session.AttendeeUser.Any(e => e.UserUsername == loggedInUser.Username) != null;
 
             return View(session);
         }
@@ -50,18 +50,19 @@ namespace ITLab.Controllers
                 return NotFound();
 
             ItlabUser loggedInUser = IUserRepository.LoggedInUser;
-
+            var test = session.RegisterdUser;
             try
             {
-                if(session.RegisterdUser.FirstOrDefault( e => e.UserUsernameNavigation.Equals(loggedInUser)) == null)
-                {
-                    session.AddRegisteredUser(loggedInUser);
-                    TempData["message"] = $"Je bent ingeschreven voor deze sessie.";
-                }
-                else
+                if(session.RegisterdUser.Any(e => e.UserUsernameNavigation.Equals(loggedInUser)))
                 {
                     session.RemoveRegisteredUser(loggedInUser);
                     TempData["message"] = $"Je bent uitgeschreven voor deze sessie.";
+                }
+                else
+                {
+                    session.AddRegisteredUser(loggedInUser);
+                    TempData["message"] = $"Je bent ingeschreven voor deze sessie.";
+                   
                 }
                 
                 
