@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    ViewData["ActieKnop"] = ((bool)ViewData["UserAlreadyRegistered"]) ?  "uitschrijven" : "inschrijven";
 }
     <asp:ContentPlaceHolder ID="NavStyle" runat="server">
         <link href="~/css/normalNav.css" rel="stylesheet" />
@@ -36,18 +37,11 @@
 
                     @if (Model.SeatsAvailable() > 0)
                     {
-                        @if ((bool)ViewData["UserAlreadyRegistered"] == false)
-                        {   
-                            <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session"  asp-action="RegisterForSession" asp-route-id="@Model.Id" role="button">Inschrijven</a>
-                            
-                        }
-                        else
-                        {
-                            <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session"  asp-action="RegisterForSession" asp-route-id="@Model.Id" role="button">Uitschrijven</a>
-                        }
-                    }
-                    else
-                    {
+                        
+                            <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session"  asp-action="RegisterForSession" asp-route-id="@Model.Id" role="button">@ViewData["ActieKnop"]</a>
+                            }
+                            else
+                            {
                         <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
                     }
                 }
