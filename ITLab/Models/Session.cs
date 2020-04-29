@@ -65,9 +65,4 @@ namespace ITLab.Models
             Feedback.Add(new Feedback(user, text));
         }
     }
-
-
-
-
-   
 }

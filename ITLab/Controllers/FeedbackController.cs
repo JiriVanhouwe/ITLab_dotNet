@@ -27,29 +27,52 @@ namespace ITLab.Controllers
             if (session == null)
                 return NotFound();
 
-            return View(session);
+            ViewData["sessionTitle"] = session.Title;
+            return View(new FeedbackViewModel() { Title=session.Title });
         }
 
+        //[HttpPost]
+        //public IActionResult GiveFeedback(int id, FeedbackViewModel feedbackViewModel) //TODO dit werkt nog niet
+        //{
+        //    ItlabUser loggedInUser = IUserRepository.LoggedInUser;
+        //    Session session = _sessionRepository.GetById(id);
+        //    if (session == null)
+        //        return NotFound();
+
+        //        try
+        //        {
+        //            session.AddFeedback(loggedInUser, feedbackViewModel.Feedback);
+        //            _sessionRepository.SaveChanges();
+   
+        //            TempData["message"] = $"Bedankt voor jouw feedback!";
+        //        }
+        //        catch
+        //        {
+        //            TempData["error"] = "Sorry, er ging iets mis.";
+        //        }
+        //    return RedirectToAction(nameof(Index), id);
+        //}
+
         [HttpPost]
-        public IActionResult GiveFeedback(int id, FeedbackViewModel feedbackViewModel) //TODO dit werkt nog niet
+        public IActionResult Index(int id, FeedbackViewModel feedbackViewModel) //TODO dit werkt nog niet
         {
             ItlabUser loggedInUser = IUserRepository.LoggedInUser;
             Session session = _sessionRepository.GetById(id);
             if (session == null)
                 return NotFound();
 
-                try
-                {
-                    session.AddFeedback(loggedInUser, feedbackViewModel.Feedback);
-                    _sessionRepository.SaveChanges();
-   
-                    TempData["message"] = $"Bedankt voor jouw feedback!";
-                }
-                catch
-                {
-                    TempData["error"] = "Sorry, er ging iets mis.";
-                }
-            return RedirectToAction(nameof(Index), new { id });
+            try
+            {
+                session.AddFeedback(loggedInUser, feedbackViewModel.Feedback);
+                _sessionRepository.SaveChanges();
+
+                TempData["message"] = $"Bedankt voor jouw feedback!";
+            }
+            catch
+            {
+                TempData["error"] = "Sorry, er ging iets mis.";
+            }
+            return RedirectToAction(nameof(Index), id);
         }
     }
 }
