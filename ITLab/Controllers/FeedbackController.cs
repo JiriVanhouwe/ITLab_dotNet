@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ITLab.Models;
+using ITLab.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITLab.Controllers
@@ -19,6 +20,7 @@ namespace ITLab.Controllers
             _sessionRepository = sessionRepo;
             _usersRepository = userRepo;
         }
+
         public IActionResult Index(int id)
         {
             Session session = _sessionRepository.GetById(id);
@@ -29,12 +31,25 @@ namespace ITLab.Controllers
         }
 
         [HttpPost]
-        public IActionResult GiveFeedback(int id)
+        public IActionResult GiveFeedback(int id, FeedbackViewModel feedbackViewModel) //TODO dit werkt nog niet
         {
+            ItlabUser loggedInUser = IUserRepository.LoggedInUser;
+            Session session = _sessionRepository.GetById(id);
+            if (session == null)
+                return NotFound();
 
-            return View();
-
-
+                try
+                {
+                    session.AddFeedback(loggedInUser, feedbackViewModel.Feedback);
+                    _sessionRepository.SaveChanges();
+   
+                    TempData["message"] = $"Bedankt voor jouw feedback!";
+                }
+                catch
+                {
+                    TempData["error"] = "Sorry, er ging iets mis.";
+                }
+            return RedirectToAction(nameof(Index), new { id });
         }
     }
 }

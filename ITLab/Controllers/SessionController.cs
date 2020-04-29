@@ -28,47 +28,53 @@ namespace ITLab.Controllers
                 return NotFound();
 
             ItlabUser loggedInUser = IUserRepository.LoggedInUser;
+          
 
             if (loggedInUser == null) //wanneer er niemand ingelogd is
-                ViewData["NoUserLoggedIn"] = true;
+                ViewData["UserLoggedIn"] = false;
             else
             {
-                ViewData["NoUserLoggedIn"] = false;
+                ViewData["UserLoggedIn"] = true;
                 ViewData["UserAlreadyRegistered"] = session.IsUserRegistered(IUserRepository.LoggedInUser.Username); //de ingelogde user is al geregistreerd voor deze sessie
             }
+           
+            ViewData["SessionIsFinished"] = session.Stateenum.Equals(State.FINISHED);
+            ViewData["UserAttended"] = session.AttendeeUser.Any(e => e.UserUsername == loggedInUser.Username);
 
             return View(session);
         }
 
-        [HttpPost]
-        public IActionResult RegisterForSession(int id) //TODO werkt nog niet
+        public IActionResult RegisterForSession(int id)
         {
             Session session = _sessionRepository.GetById(id);
             if (session == null)
                 return NotFound();
 
             ItlabUser loggedInUser = IUserRepository.LoggedInUser;
-
+            var test = session.RegisterdUser;
             try
             {
-                session.AddRegisteredUser(loggedInUser);
-                Console.WriteLine("Hier1");
+                if(session.RegisterdUser.Any(e => e.UserUsernameNavigation.Equals(loggedInUser)))
+                {
+                    session.RemoveRegisteredUser(loggedInUser);
+                    TempData["message"] = $"Je bent uitgeschreven voor deze sessie.";
+                }
+                else
+                {
+                    session.AddRegisteredUser(loggedInUser);
+                    TempData["message"] = $"Je bent ingeschreven voor deze sessie.";
+                   
+                }       
                 _sessionRepository.SaveChanges();
-                Console.WriteLine("Hier2");
                 _usersRepository.SaveChanges();
-                Console.WriteLine("Hier3");
-
-                TempData["message"] = $"Je bent ingeschreven voor deze sessie.";
+                 
                  }
                 catch
                 {
                     TempData["error"] = "Sorry, er ging iets mis...";
                 }
 
-            Console.WriteLine("Hier4");
-            return RedirectToAction(nameof(Index), id);
+            return RedirectToAction("index", new {  id });
         }
-
-
     }
 }

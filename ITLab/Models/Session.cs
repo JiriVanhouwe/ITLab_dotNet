@@ -41,6 +41,11 @@ namespace ITLab.Models
             RegisterdUser.Add(new RegisterdUser(this, user));
         }
 
+        public void RemoveRegisteredUser(ItlabUser user)
+        {
+            RegisterdUser.Remove(RegisterdUser.First(e => e.UserUsername == user.Username));
+        }
+
         public bool IsUserRegistered(string userName)
         {
             if (RegisterdUser.Any(u => u.UserUsername == userName))
@@ -54,6 +59,11 @@ namespace ITLab.Models
         {
             return Maxattendee - RegisterdUser.Count;
         }
+
+        public void AddFeedback(ItlabUser user, string text)
+        {
+            Feedback.Add(new Feedback(user, text));
+        }
     }
 
 
@@ -61,48 +71,3 @@ namespace ITLab.Models
 
    
 }
-
-/*using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TestDatabase.Models;
-
-namespace ITLab.Models
-{
-    public enum State
-    {
-        FINISHED, OPEN, CLOSED
-    }
-
-
-    public class Session
-    {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Guestname { get; set; }
-        public Classroom Classroom { get; set; }
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
-        public int MaxAttendees { get; set; }
-        public IEnumerable<int> Media { get; set; }
-        public string VideoUrl { get; set; }
-        public IEnumerable<User> RegisteredUsers { get; set; }
-        public IEnumerable<User> Attendees { get; set; }
-        public User Host { get; set; }
-        public IEnumerable<Feedback> Feedbacks { get; set; }
-        protected State StateName { get; set; }
-        protected SessionState State { get; set; }
-
-        public Session(string title, string description, DateTime startDateTime, DateTime endDateTime, int maxAttendees, string guestName)
-        {
-            Title = title;
-            Description = description;
-            StartDateTime = startDateTime;
-            EndDateTime = endDateTime;
-            MaxAttendees = maxAttendees;
-            Guestname = guestName;
-        }
-    }
-}
-*/

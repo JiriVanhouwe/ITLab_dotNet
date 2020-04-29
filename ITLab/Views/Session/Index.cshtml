@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "Index";
+    if ((bool)ViewData["UserLoggedIn"] == true)
+    {
+        ViewData["ActieKnop"] = ((bool)ViewData["UserAlreadyRegistered"]) ? "Uitschrijven" : "Inschrijven";
+    }
 }
     <asp:ContentPlaceHolder ID="NavStyle" runat="server">
         <link href="~/css/normalNav.css" rel="stylesheet" />
@@ -23,34 +27,41 @@
             </div>
             <p class="lead" style="margin-top: 10px;">
 
-                @if ((bool)ViewData["NoUserLoggedIn"] == true)
+                @if ((bool)ViewData["SessionIsFinished"] == false)
                 {
-                    <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
+
+                    @if ((bool)ViewData["UserLoggedIn"] == false)
+                    {
+                    <p style="margin-right: 10px; color:red;">Log je in om in te schrijven.</p>
+
+                    }
+                     else
+                    {
+
+                    @if (Model.SeatsAvailable() > 0)
+                        {
+                        
+                            <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session"  asp-action="RegisterForSession" asp-route-id="@Model.Id" role="button">@ViewData["ActieKnop"]</a>
+                        }
+                            else
+                            {
+                        <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
+                            }
+                     }
                 }
                 else
                 {
 
-                    @if (Model.SeatsAvailable() > 0)
+                    <p style="margin-right: 10px;">Deze sessie is afgelopen inschrijven niet mogelijk</p>
+                    @if ((bool)ViewData["UserAttended"] == true)
                     {
-                        @if ((bool)ViewData["UserAlreadyRegistered"] == false)
-                        {
-                            <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session" asp-action="RegisterForSession" asp-route-id="@Model.Id" role="button">Inschrijven</a>
-                            <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-success" style="margin-right: 10px;" href="#" role="button">Uitschrijven</a>
-                            <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
-                        }
+                        <a class="btn btn-primary" asp-controller="Feedback" asp-action="Index" asp-route-id="@Model.Id" role="button">Feedback</a>
                     }
-                    else
-                    {
-                    <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
-                    <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
                 }
 
-                }
-                <a class="btn btn-primary" asp-controller="Feedback" asp-action="Index" asp-route-id="@Model.Id" role="button">Feedback</a>
+
+                <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
+
 
                 <div class="container">
                     @if (TempData["message"] != null)

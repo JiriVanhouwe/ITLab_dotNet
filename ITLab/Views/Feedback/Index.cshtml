@@ -18,23 +18,38 @@
                 <img src="~/img/feedback.png" alt="feedback">
             </div>
 
-            <form>
-                <div>
-                    <div class="form-group">
-                        <label for="feedback">Laat je ons weten hoe je de sessie vond?</label>
-                        <textarea class="form-control" id="feedback" rows="3"></textarea>
-                    </div>
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Feedback">Laat je ons weten hoe je de sessie vond?</label>
+                    <textarea class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Feedback" class="text-danger"></span>
+                </div>
 
-                    <div>
-                        <a class="btn btn-success" style="margin-right: 10px;" href="#" role="button">Verstuur</a>
-                        <a class="btn btn-primary" asp-controller="Session" asp-action="Index" asp-route-id="@Model.Id" role="button">Terug</a>
-                    </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">Verstuur</button>
+                    <a class="btn btn-primary" asp-controller="Session" asp-action="Index" asp-route-id="@Model.Id" role="button">Terug</a>
                 </div>
             </form>
+
+            <div class="container">
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success">@TempData["message"]</div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-warning">@TempData["error"]</div>
+                }
+            </div>
         </div>
     </div>
-    </div>
+</div>
 
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}
 
 
 
