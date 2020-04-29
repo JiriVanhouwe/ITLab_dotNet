@@ -28,22 +28,23 @@ namespace ITLab.Controllers
                 return NotFound();
 
             ItlabUser loggedInUser = IUserRepository.LoggedInUser;
+          
 
             if (loggedInUser == null) //wanneer er niemand ingelogd is
-                ViewData["NoUserLoggedIn"] = true;
+                ViewData["UserLoggedIn"] = false;
             else
             {
-                ViewData["NoUserLoggedIn"] = false;
+                ViewData["UserLoggedIn"] = true;
                 ViewData["UserAlreadyRegistered"] = session.IsUserRegistered(IUserRepository.LoggedInUser.Username); //de ingelogde user is al geregistreerd voor deze sessie
             }
            
-            ViewData["SessionIsFinshed"] = session.Stateenum.Equals(State.FINISHED);
-            ViewData["UserAtend"] = session.AttendeeUser.Any(e => e.UserUsername == loggedInUser.Username) != null;
+            ViewData["SessionIsFinished"] = session.Stateenum.Equals(State.FINISHED);
+            ViewData["UserAttended"] = session.AttendeeUser.Any(e => e.UserUsername == loggedInUser.Username);
 
             return View(session);
         }
 
-        public IActionResult RegisterForSession(int id) //TODO werkt nog niet
+        public IActionResult RegisterForSession(int id)
         {
             Session session = _sessionRepository.GetById(id);
             if (session == null)
@@ -63,15 +64,10 @@ namespace ITLab.Controllers
                     session.AddRegisteredUser(loggedInUser);
                     TempData["message"] = $"Je bent ingeschreven voor deze sessie.";
                    
-                }
-                
-                
+                }       
                 _sessionRepository.SaveChanges();
-
                 _usersRepository.SaveChanges();
-                
-
-                
+                 
                  }
                 catch
                 {
@@ -80,7 +76,5 @@ namespace ITLab.Controllers
 
             return RedirectToAction("index", new {  id });
         }
-
-
     }
 }

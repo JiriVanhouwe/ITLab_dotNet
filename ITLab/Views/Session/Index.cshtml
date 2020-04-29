@@ -2,7 +2,10 @@
 
 @{
     ViewData["Title"] = "Index";
-    ViewData["ActieKnop"] = ((bool)ViewData["UserAlreadyRegistered"]) ?  "uitschrijven" : "inschrijven";
+    if ((bool)ViewData["UserLoggedIn"] == true)
+    {
+        ViewData["ActieKnop"] = ((bool)ViewData["UserAlreadyRegistered"]) ? "Uitschrijven" : "Inschrijven";
+    }
 }
     <asp:ContentPlaceHolder ID="NavStyle" runat="server">
         <link href="~/css/normalNav.css" rel="stylesheet" />
@@ -24,33 +27,33 @@
             </div>
             <p class="lead" style="margin-top: 10px;">
 
-                @if ((bool)ViewData["SessionIsFinshed"] == false)
+                @if ((bool)ViewData["SessionIsFinished"] == false)
                 {
 
-                    @if ((bool)ViewData["NoUserLoggedIn"] == true)
+                    @if ((bool)ViewData["UserLoggedIn"] == false)
                     {
                     <p style="margin-right: 10px; color:red;">Log je in om in te schrijven.</p>
 
-                }
-                else
-                {
+                    }
+                     else
+                    {
 
                     @if (Model.SeatsAvailable() > 0)
-                    {
+                        {
                         
                             <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session"  asp-action="RegisterForSession" asp-route-id="@Model.Id" role="button">@ViewData["ActieKnop"]</a>
-                            }
+                        }
                             else
                             {
                         <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
-                    }
-                }
+                            }
+                     }
                 }
                 else
                 {
 
                     <p style="margin-right: 10px;">Deze sessie is afgelopen inschrijven niet mogelijk</p>
-                    @if ((bool)ViewData["UserAtend"] == true)
+                    @if ((bool)ViewData["UserAttended"] == true)
                     {
                         <a class="btn btn-primary" asp-controller="Feedback" asp-action="Index" asp-route-id="@Model.Id" role="button">Feedback</a>
                     }
