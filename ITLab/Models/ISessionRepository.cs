@@ -10,6 +10,7 @@ namespace ITLab.Models
         Session GetById(int id);
         IList<Session> GetSessions();
         Session GetFirstComingSession();
+        IList<Session> GetFirstComingSessions(int amount);
         void SaveChanges();
     }
 }
