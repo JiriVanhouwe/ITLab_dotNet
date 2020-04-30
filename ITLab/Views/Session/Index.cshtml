@@ -53,11 +53,14 @@
                 {
 
                     <p style="margin-right: 10px;">Deze sessie is afgelopen inschrijven niet mogelijk</p>
+                    @if ((bool)ViewData["UserLoggedIn"] == true)
+                    {
                     @if ((bool)ViewData["UserAttended"] == true)
                     {
                         <a class="btn btn-primary" asp-controller="Feedback" asp-action="Index" asp-route-id="@Model.Id" role="button">Feedback</a>
                     }
-                }
+                        }
+                    }
 
 
                 <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
