@@ -23,6 +23,8 @@ namespace ITLab.Data.Repositories
         {
             return _sessions
                         .Where(session => session.SessionCalendar.Startdate <= DateTime.Now && session.SessionCalendar.Enddate >= DateTime.Now)
+                        .Include(session => session.Feedback)
+                        .Include(session => session.AttendeeUser).ThenInclude(e => e.UserUsernameNavigation)
                         .Include(session => session.RegisterdUser).ThenInclude(e => e.UserUsernameNavigation)
                         .Include(session => session.ClassroomClass)
                         .FirstOrDefault(session => session.Id == id);
@@ -31,6 +33,12 @@ namespace ITLab.Data.Repositories
         public Session GetFirstComingSession()
         {
             return _sessions.Where(s => s.Eventdate >= DateTime.Now).OrderBy(s => s.Eventdate).FirstOrDefault();
+        }
+
+        public IList<Session> GetFirstComingSessions(int amount)
+        {
+            List<Session> upcomingSessions = _sessions.Where(s => s.Eventdate >= DateTime.Now).OrderBy(s => s.Eventdate).ToList();
+            return upcomingSessions.Skip(Math.Max(0, upcomingSessions.Count() - amount)).ToList();
         }
 
         public IList<Session> GetSessions()

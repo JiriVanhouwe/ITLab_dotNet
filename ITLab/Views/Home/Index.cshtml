@@ -1,4 +1,4 @@
-﻿@model ITLab.Models.Session;
+﻿@model IList<ITLab.Models.Session>;
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -47,7 +47,7 @@
         <div class="header">
             <div class="text-container">
                 <div class="typewriter">
-                    <h1>Welkom bij het virtuele ITLab!</h1>
+                    <h1>ITLab: Het belangrijkste lokaal van HoGent!</h1>
                 </div>
             </div>
         </div>
@@ -83,7 +83,6 @@
                 </table>*@
                 <!--Carousel Wrapper-->
                 <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
-                    <!--/.Controls-->
                     <!--Indicators-->
                     <!--Slides-->
                     <div class="carousel-inner" role="listbox">
@@ -91,7 +90,23 @@
                         <!--First slide-->
                         <div class="carousel-item active">
 
-                            <div class="col-md-3" style="float:left">
+                            @foreach (var session in Model)
+                            {
+                                <div class="col-md-3" style="float:left">
+                                    <div class="card mb-2">
+                                        <img class="card-img-top" src="~/img/itlab-logo.jpg" />
+                                        <div class="card-body">
+                                            <h4 class="card-title">@session.Title</h4>
+                                            <p class="card-text">
+                                                @session.Description
+                                            </p>
+                                            <a class="btn btn-primary" asp-controller="Session" asp-route-id="@session.Id" role="button">Meer informatie</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            @*<div class="col-md-3" style="float:left">
                                 <div class="card mb-2">
                                     <img class="card-img-top" src="~/img/itlab-logo.jpg" />
                                     <div class="card-body">
@@ -145,7 +160,7 @@
                                         <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Meer informatie</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
 
                         </div>
                         <!--/.First slide-->
