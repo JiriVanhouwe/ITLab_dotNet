@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ITLab.Models.Session>;
+@{
+    ViewData["Title"] = "SessionAdmin";
+}
+<asp:ContentPlaceHolder ID="NavStyle" runat="server">
+    <link href="~/css/normalNav.css" rel="stylesheet" />
+</asp:ContentPlaceHolder>
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">Admin panel</h1>
+    </div>
+    <div id='calendar'></div>
+
+    <table class="table">
+        <tr>
+            <th>Titel</th>
+            <th>Datum</th>
+            <th>Tijdstip</th>
+            <th>Lokaal</th>
+            <th>Status</th>
+            <th>Max / aangemeld / aanwezig</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.Eventdate.ToShortDateString()
+                </td>
+                <td>
+                    @(string.Format("{0:00}:{1:00}", item.Starthour.Hours, item.Starthour.Minutes)) - @(string.Format("{0:00}:{1:00}", item.Endhour.Hours, item.Endhour.Minutes))
+                </td>
+                <td>
+                    @item.ClassroomClassid
+                </td>
+                <td>
+                    @item.Stateenum
+                </td>
+                <td>
+                    @item.Maxattendee / @item.RegisterdUser.Count() / @item.AttendeeUser.Count()
+                </td>
+                <td>
+                    @if (item.Stateenum.Equals(State.CLOSED))
+                    {
+                        <a asp-controller="SessionAdmin" asp-action="OpenSession" asp-route-id="@item.Id" class="btn btn-secondary text-right ml-5">Open sessie</a>
+                    }
+                </td>
+            </tr>
+
+        }
+    </table>
+</div>

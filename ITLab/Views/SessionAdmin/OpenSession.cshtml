@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Sessie openen";
+
+}
+    <div class="container">
+        <h4 class="display-4">@ViewData["Title"]</h4>
+        <p class="alert"> Ben je zeker dat je deze sessie wil open zetten @ViewData["SessionInfo"]? </p>
+
+        <form method="post">
+            <button class="btn btn-primary" type="submit">Open</button>
+            <a asp-action="Index" class="btn bg-secondary">Cancel</a>
+        </form>
+    </div>
+

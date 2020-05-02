@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ITLab.Models;
 using ITLab.Data.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace ITLab
 {
@@ -33,16 +34,20 @@ namespace ITLab
                 options.UseSqlServer(
                     Configuration["connectionDataBaseString"]));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+               
                 .AddEntityFrameworkStores<ITLab_DBContext>();
+                
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISessionRepository, SessionRepository>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -63,7 +68,7 @@ namespace ITLab
 
             app.UseAuthentication();
             app.UseAuthorization();
-         
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -71,6 +76,10 @@ namespace ITLab
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+
+          //  DataInitializer.SeedRoles(app.ApplicationServices).Wait();
+
         }
     }
 }
