@@ -46,6 +46,7 @@ namespace ITLab.Data.Repositories
             return _sessions
                         .Where(session => session.SessionCalendar.Startdate <= DateTime.Now && session.SessionCalendar.Enddate >= DateTime.Now)
                         .Include(session => session.RegisterdUser)
+                        .Include(session => session.AttendeeUser)
                         .Include(session => session.ClassroomClass)
                         .ToList();
         }

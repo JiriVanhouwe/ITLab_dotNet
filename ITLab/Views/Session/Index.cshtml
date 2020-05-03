@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
     if ((bool)ViewData["UserLoggedIn"] == true)
-    {
+    { 
         ViewData["ActieKnop"] = ((bool)ViewData["UserAlreadyRegistered"]) ? "Uitschrijven" : "Inschrijven";
     }
 }

@@ -70,5 +70,10 @@ namespace ITLab.Models
         {
             Feedback.Add(new Feedback(user, text));
         }
+
+        public void addAttendeeUser(ItlabUser itlabUser)
+        {
+            AttendeeUser.Add(new AttendeeUser(this, itlabUser));
+        }
     }
 }
