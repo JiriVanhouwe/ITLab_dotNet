@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 
 public static class DataInitializer
 {
+
     public static async Task SeedRoles(IServiceProvider serviceProvider)
     {
-        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        foreach (var role in Enum.GetNames(typeof(UserType)))
+        using (IServiceScope scope = serviceProvider.CreateScope())
         {
-            if (!await roleManager.RoleExistsAsync(role))
+            RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            foreach (var role in Enum.GetNames(typeof(UserType)))
             {
-                await roleManager.CreateAsync(new IdentityRole(role));
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
             }
         }
+
     }
 }
 

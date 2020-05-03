@@ -34,7 +34,7 @@ namespace ITLab
                 options.UseSqlServer(
                     Configuration["connectionDataBaseString"]));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-               
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ITLab_DBContext>();
                 
             services.AddHttpContextAccessor();
@@ -42,8 +42,6 @@ namespace ITLab
             services.AddRazorPages();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISessionRepository, SessionRepository>();
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,8 +76,11 @@ namespace ITLab
             });
 
 
-          //  DataInitializer.SeedRoles(app.ApplicationServices).Wait();
-
+            DataInitializer.SeedRoles(app.ApplicationServices).Wait();
         }
+
+
     }
+
+
 }
