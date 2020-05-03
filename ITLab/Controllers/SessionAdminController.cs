@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ITLab.Controllers
 {
-    //roles have to be implemented
-    //[Authorize(Roles = "Admin")]
+
+    [Authorize(Roles = "HEAD")]
     public class SessionAdminController : Controller
     {
 
