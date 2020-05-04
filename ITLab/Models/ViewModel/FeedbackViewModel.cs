@@ -8,7 +8,7 @@ namespace ITLab.Models.ViewModel
 {
     public class FeedbackViewModel
     {
-        public String Title { get; set; }
+        public string Title { get; set; }
         [Required(ErrorMessage = "Gelieve feedback in te vullen.")]
         public string Feedback { get; set; }
     }
