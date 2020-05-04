@@ -156,7 +156,25 @@ namespace ITLab.Areas.Identity.Pages.Account
                                 identityUser = new IdentityUser(email) { Id = email, PasswordHash = hashedPassword };
                                 await _userManager.CreateAsync(identityUser);
                                 await _userManager.SetUserNameAsync(identityUser, user.Firstname + "" + user.Lastname);
+
+                                //We then set the role based on the usertype
+                                string userRole = user.UserType.ToString();
+                                await _userManager.AddToRoleAsync(identityUser, userRole);
                             }
+                            else
+                            {
+                                //When there's already an entry for this user we should check if their role has changed
+                                var roles = await _userManager.GetRolesAsync(identityUser);
+                                if (!roles.Contains(user.UserType.ToString()))
+                                {
+                                    //We remove all the previous roles from the user
+                                    await _userManager.RemoveFromRolesAsync(identityUser, roles);
+                                    //Then we add the right one
+                                    string userRole = user.UserType.ToString();
+                                    await _userManager.AddToRoleAsync(identityUser, userRole);
+                                }
+                            }
+
                             //Finally we can perform the actual login and tell the userRepo which user is logged in
                             await _signInManager.SignInAsync(identityUser, isPersistent: false);
                             IUserRepository.LoggedInUser = user;

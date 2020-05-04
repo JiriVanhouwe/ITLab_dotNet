@@ -36,6 +36,12 @@ namespace ITLab.Models
             RegisterdUser = new HashSet<RegisterdUser>();
         }
 
+        public void openSession()
+        {
+            Stateenum = State.OPEN;
+            //hier nog state aanpassen want nu enkel enum?
+        }
+
         public void AddRegisteredUser(ItlabUser user)
         {
             RegisterdUser.Add(new RegisterdUser(this, user));
@@ -63,6 +69,11 @@ namespace ITLab.Models
         public void AddFeedback(ItlabUser user, string text)
         {
             Feedback.Add(new Feedback(user, text));
+        }
+
+        public void addAttendeeUser(ItlabUser itlabUser)
+        {
+            AttendeeUser.Add(new AttendeeUser(this, itlabUser));
         }
     }
 }

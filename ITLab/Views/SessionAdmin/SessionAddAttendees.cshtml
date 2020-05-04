@@ -1,0 +1,63 @@
+﻿@model ITLab.Models.ViewModel.UserAttendViewModel;
+
+@{
+    ViewData["Title"] = "SessionAddAttendees";
+    
+}
+<asp:ContentPlaceHolder ID="NavStyle" runat="server">
+    <link href="~/css/normalNav.css" rel="stylesheet" />
+</asp:ContentPlaceHolder>
+
+<div class="container">
+    <p class="display-4">Neem aanwezigheden op voor Sessie  </p>
+    <p class="font-weight-bold">naam sessie: @Model.Session.Title </p>
+    <div class="container" style="padding: 2em">
+        <form asp-action="SessionAddAttendees" method="post" >
+            <div class=" form-group">
+                <label>Om een gebruiker aanwezig te zetten geeft u de email van de gebruiker.</label>
+                <input class="form-control" asp-for="Email" placeholder="email van gebruiker" />
+
+            </div>
+            <button class="btn btn-primary" type="submit">Zet aanwezig</button>
+            <a asp-action="Index" class="btn bg-secondary">terug naar admin panel</a>
+        </form>
+        <div style="margin-top: 1em">
+            @if (TempData["message"] != null)
+            {
+                <div class="alert alert-success " style="display: inline-block">@TempData["message"]</div>
+            }
+            @if (TempData["error"] != null)
+            {
+                <div class="alert alert-warning" style="display: inline-block">@TempData["error"]</div>
+            }
+        </div>
+
+
+    </div>
+    <div class="row container align-content-center">
+        <div class="col-xs-6">
+            <table class="table">
+                <tr><th> Ingeschreven</th></tr>
+
+                @foreach (var e in Model.Session.RegisterdUser)
+                {
+                    <tr>
+                        <td> @e.UserUsername</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col-xs-6">
+            <table class="table">
+
+                <tr> <th> Aangemeld</th></tr>
+                @foreach (var e in Model.Session.AttendeeUser)
+                {
+                    <tr>
+                        <td> @e.UserUsername</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

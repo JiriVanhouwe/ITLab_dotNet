@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ITLab.Models;
 using ITLab.Data.Repositories;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace ITLab
 {
@@ -33,7 +35,9 @@ namespace ITLab
                 options.UseSqlServer(
                     Configuration["connectionDataBaseString"]));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ITLab_DBContext>();
+                
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -42,7 +46,7 @@ namespace ITLab
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -63,14 +67,24 @@ namespace ITLab
 
             app.UseAuthentication();
             app.UseAuthorization();
-         
+
             app.UseEndpoints(endpoints =>
             {
+                //When a user tries to acces the register page he is redirected
+                endpoints.MapGet("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+                endpoints.MapPost("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+
+            DataInitializer.SeedRoles(app.ApplicationServices).Wait();
         }
+
+
     }
+
+
 }
