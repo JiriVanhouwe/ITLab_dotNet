@@ -43,7 +43,6 @@ namespace ITLab.Data.Repositories
         public IList<Session> GetFirstComingSessions(int amount)
         {
             List<Session> upcomingSessions = _sessions.Where(s => s.Eventdate >= DateTime.Now).OrderBy(s => s.Eventdate).ToList();
-            //return upcomingSessions.Skip(Math.Max(0, upcomingSessions.Count() - amount)).ToList();
             return upcomingSessions.GetRange(0, amount).ToList();
         }
 

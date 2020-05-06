@@ -68,7 +68,7 @@ namespace ITLab.Models
             RegisterdUser = new HashSet<RegisterdUser>();
         }
 
-        public void openSession()
+        public void OpenSession()
         {
             Stateenum = State.OPEN;
             //hier nog state aanpassen want nu enkel enum?
@@ -104,7 +104,7 @@ namespace ITLab.Models
             Feedback.Add(new Feedback(user, text));
         }
 
-        public void addAttendeeUser(ItlabUser itlabUser)
+        public void AddAttendeeUser(ItlabUser itlabUser)
         {
             if (!RegisterdUser.Any(e => e.UserUsernameNavigation.Equals(itlabUser)))
             {

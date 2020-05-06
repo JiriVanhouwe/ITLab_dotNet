@@ -47,7 +47,7 @@ namespace ITLab.Controllers
         public IActionResult OpenSessionConfirmed(int id)
         {
             Session session = _sessionRepository.GetById(id);
-            session.openSession();
+            session.OpenSession();
             _sessionRepository.SaveChanges();
             return RedirectToAction(nameof(Index));
 
@@ -72,7 +72,7 @@ namespace ITLab.Controllers
             if(userAttend != null && session != null) {
                 try 
                 {
-                    session.addAttendeeUser(userAttend);
+                    session.AddAttendeeUser(userAttend);
                     _sessionRepository.SaveChanges();
                     TempData["message"] = $"{userAttend.Username} is aangemeld";
                 }
