@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Access denied";
 }
-
+<asp:ContentPlaceHolder ID="NavStyle" runat="server">
+    <link href="~/css/normalNav.css" rel="stylesheet" />
+</asp:ContentPlaceHolder>
 <header>
     <h1 class="text-danger">@ViewData["Title"]</h1>
     <p class="text-danger">You do not have access to this resource.</p>

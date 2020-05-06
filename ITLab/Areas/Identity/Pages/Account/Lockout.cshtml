@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Locked out";
 }
-
+<asp:ContentPlaceHolder ID="NavStyle" runat="server">
+    <link href="~/css/normalNav.css" rel="stylesheet" />
+</asp:ContentPlaceHolder>
 <header>
     <h1 class="text-danger">@ViewData["Title"]</h1>
     <p class="text-danger">This account has been locked out, please try again later.</p>

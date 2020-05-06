@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Log out";
 }
-
+<asp:ContentPlaceHolder ID="NavStyle" runat="server">
+    <link href="~/css/normalNav.css" rel="stylesheet" />
+</asp:ContentPlaceHolder>
 <header>
     <h1>@ViewData["Title"]</h1>
     <p>You have successfully logged out of the application.</p>
