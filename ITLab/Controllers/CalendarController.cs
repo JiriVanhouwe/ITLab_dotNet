@@ -14,10 +14,12 @@ namespace ITLab.Controllers
         public CalendarController(ISessionRepository sessionRepo)
         {
             _sessionRepository = sessionRepo;
+            _sessionRepository.UpdateFinishedSessions();
         }
 
         public IActionResult Index()
         {
+
             IEnumerable<Session> allSessions = _sessionRepository.GetSessions();
 
             return View(allSessions);

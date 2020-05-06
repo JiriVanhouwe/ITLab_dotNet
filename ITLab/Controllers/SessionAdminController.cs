@@ -69,13 +69,22 @@ namespace ITLab.Controllers
         {
             Session session = _sessionRepository.GetById(id);
             ItlabUser userAttend = _userRepository.GetById(insertedUser.Email);
-            if(userAttend != null) {
-                session.addAttendeeUser(userAttend);
-                _sessionRepository.SaveChanges();
-                TempData["message"] = $"{userAttend.Username} is aangemeld";
+            if(userAttend != null && session != null) {
+                try 
+                {
+                    session.addAttendeeUser(userAttend);
+                    _sessionRepository.SaveChanges();
+                    TempData["message"] = $"{userAttend.Username} is aangemeld";
+                }
+                catch(Exception e)
+                {
+                    TempData["error"] = e.Message;
+                }
+             
             }else
             {
-                TempData["error"] = $"er ging iets fout {insertedUser.Email} niet gevonden";
+                TempData["error"] = $"Er ging iets fout {insertedUser.Email} niet gevonden";
+                
             }
 
             

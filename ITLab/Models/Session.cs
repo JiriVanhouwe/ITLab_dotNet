@@ -49,6 +49,7 @@ namespace ITLab.Models
 
         public void RemoveRegisteredUser(ItlabUser user)
         {
+
             RegisterdUser.Remove(RegisterdUser.First(e => e.UserUsername == user.Username));
         }
 
@@ -73,7 +74,17 @@ namespace ITLab.Models
 
         public void addAttendeeUser(ItlabUser itlabUser)
         {
-            AttendeeUser.Add(new AttendeeUser(this, itlabUser));
+            if (!RegisterdUser.Any(e => e.UserUsernameNavigation.Equals(itlabUser)))
+            {
+                AddRegisteredUser(itlabUser);
+            }
+            if (!AttendeeUser.Any(e => e.UserUsernameNavigation.Equals(itlabUser)))
+            {
+                AttendeeUser.Add(new AttendeeUser(this, itlabUser));
+            }
+            else
+                throw new ArgumentException("user is al aanwezig");
+            
         }
     }
 }
