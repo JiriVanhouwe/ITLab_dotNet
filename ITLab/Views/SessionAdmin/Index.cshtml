@@ -9,22 +9,25 @@
 <div class="container">
     <div class="text-center">
         <h1 class="display-4">Admin panel</h1>
+        <hr class="my-4">
     </div>
     <div id='calendar'></div>
 
-    <table class="table">
-        <tr>
-            <th>Titel</th>
-            <th>Datum</th>
-            <th>Tijdstip</th>
-            <th>Lokaal</th>
-            <th>Status</th>
-            <th>max</th>
-            <th>aangemeld</th>
-            <th>aanwezig</th>
-            <th></th>
-            <th></th>
-        </tr>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Titel</th>
+                <th>Datum</th>
+                <th>Tijdstip</th>
+                <th>Lokaal</th>
+                <th>Status</th>
+                <th>Aantal plaatsen</th>
+                <th>Ingeschreven</th>
+                <th>Aanwezig</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
         @foreach (var item in Model)
         {
             <tr>
@@ -56,7 +59,7 @@
                 <td>
                     @if (item.Stateenum.Equals(State.CLOSED))
                     {
-                        <a asp-controller="SessionAdmin" asp-action="OpenSession" asp-route-id="@item.Id" class="btn btn-secondary text-right ml-5">Open sessie</a>
+                        <a asp-controller="SessionAdmin" asp-action="OpenSession" asp-route-id="@item.Id" class="btn btn-secondary text-right ml-5">Sessie openen</a>
                     }
                 </td>
                 <td>

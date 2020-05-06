@@ -11,6 +11,8 @@ namespace ITLab.Models
         IList<Session> GetSessions();
         Session GetFirstComingSession();
         IList<Session> GetFirstComingSessions(int amount);
+
+        void UpdateFinishedSessions();
         void SaveChanges();
     }
 }

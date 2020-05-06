@@ -18,11 +18,11 @@ namespace ITLab.Controllers
         {
             _usersRepo = userRepo;
             _sessionRepository = sessionRepo;
+            _sessionRepository.UpdateFinishedSessions();
         }
 
         public IActionResult Index()
         {
-            //Session session = _sessionRepository.GetFirstComingSession();
             IList<Session> sessions = _sessionRepository.GetFirstComingSessions(4);
             if (sessions == null)
                 return NotFound(); //TODO wat als er geen komende sessie is? Dan verandert de view?

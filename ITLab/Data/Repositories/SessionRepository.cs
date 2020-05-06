@@ -51,9 +51,29 @@ namespace ITLab.Data.Repositories
                         .ToList();
         }
 
+        public void UpdateFinishedSessions()
+        {
+            List<Session> sessionsOfThePast = _sessions.Where(session => session.Eventdate < DateTime.Now && session.Stateenum != State.FINISHED).ToList();
+            if (sessionsOfThePast != null)
+            {
+                sessionsOfThePast.ForEach(el => Console.WriteLine(el.Stateenum));
+            }
+            else Console.WriteLine("NIETS");
+
+            foreach (Session s in sessionsOfThePast)
+            {
+                s.Stateenum = State.FINISHED;
+            }
+
+            _context.SaveChanges();
+        }
+
+
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
+
+
     }
 }
