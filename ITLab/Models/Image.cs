@@ -7,5 +7,10 @@ namespace ITLab.Models
     {
         public int Imagekey { get; set; }
         public byte[] Image1 { get; set; }
+
+        public string ToBase64()
+        {
+            return Convert.ToBase64String(this.Image1);
+        }
     }
 }

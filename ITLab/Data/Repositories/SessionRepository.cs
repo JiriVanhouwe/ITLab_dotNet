@@ -11,12 +11,17 @@ namespace ITLab.Data.Repositories
     {
 
         private readonly DbSet<Session> _sessions;
+        private readonly DbSet<SessionMedia> _sessionMedia;
+        private readonly DbSet<Image> _images;
         private readonly ITLab_DBContext _context;
+
 
         public SessionRepository(ITLab_DBContext context)
         {
-            this._context = context;
-            this._sessions = context.Session;
+            _context = context;
+            _sessions = context.Session;
+            _images = context.Image;
+            _sessionMedia = context.SessionMedia;
         }
 
         public Session GetById(int id)
@@ -66,6 +71,13 @@ namespace ITLab.Data.Repositories
             }
 
             _context.SaveChanges();
+        }
+
+        public Image GetImage(int id)
+        {
+            List<SessionMedia> list = _sessionMedia.Where(i => i.SessionId == id).ToList();
+
+            return list.Select(el => el.Media).Select(el => _images.SingleOrDefault(el2 => el2.Imagekey == el)).FirstOrDefault();
         }
 
 

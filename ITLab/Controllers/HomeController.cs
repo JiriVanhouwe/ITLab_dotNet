@@ -24,6 +24,11 @@ namespace ITLab.Controllers
         public IActionResult Index()
         {
             IList<Session> sessions = _sessionRepository.GetFirstComingSessions(4);
+            List<Image> listImages = sessions.Select(s => s.Id).Select(s => _sessionRepository.GetImage(s)).ToList();
+
+            
+            ViewData["image"] = listImages;
+
             if (sessions == null)
                 return NotFound(); //TODO wat als er geen komende sessie is? Dan verandert de view?
             return View(sessions);
