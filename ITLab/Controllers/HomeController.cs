@@ -23,7 +23,7 @@ namespace ITLab.Controllers
 
         public IActionResult Index()
         {
-            IList<Session> sessions = _sessionRepository.GetFirstComingSessions(4);
+            IList<Session> sessions = _sessionRepository.GetFirstComingSessions(3);
             List<Image> listImages = sessions.Select(s => s.Id).Select(s => _sessionRepository.GetImage(s)).ToList();
 
             

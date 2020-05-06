@@ -10,7 +10,7 @@
         <div class="header">
             <div class="text-container">
                 <div class="typewriter">
-                    <h1>ITLab: Het belangrijkste lokaal van HoGent!</h1>
+                    <h1>Welkom op onze website!</h1>
                 </div>
             </div>
         </div>
@@ -31,15 +31,15 @@
 
                             @foreach (var session in Model)
                             {
-                                <div class="col-md-3" style="float:left">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top" src="data:image/png;base64, @((ViewData["image"] as List<Image>)[counter++].ToBase64())" />
-                                        <div class="card-body">
-                                            <h4 class="card-title">@session.Title</h4>
-                                            <p class="card-text">
-                                                @session.Description
+                                <div class="col-md-4" style="float:left">
+                                    <div class="card mb-2 session-card">
+                                        <img class="card-img-top session-img" src="data:image/png;base64, @((ViewData["image"] as List<Image>)[counter++].ToBase64())" />
+                                        <div class="card-body session-card-body">
+                                            <h4 class="card-title">@session.CardTitle</h4>
+                                            <p class="card-text session-card-text">
+                                                @session.CardDescription
                                             </p>
-                                            <a class="btn btn-primary" asp-controller="Session" asp-route-id="@session.Id" role="button">Meer informatie</a>
+                                            <a class="btn btn-primary session-btn" asp-controller="Session" asp-route-id="@session.Id" role="button">Meer informatie</a>
                                         </div>
                                     </div>
                                 </div>

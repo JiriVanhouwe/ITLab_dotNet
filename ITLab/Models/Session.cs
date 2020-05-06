@@ -1,6 +1,7 @@
 ﻿using ITLab.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace ITLab.Models
@@ -28,6 +29,37 @@ namespace ITLab.Models
         public virtual ICollection<AttendeeUser> AttendeeUser { get; set; }
         public virtual ICollection<Feedback> Feedback { get; set; }
         public virtual ICollection<RegisterdUser> RegisterdUser { get; set; }
+
+        [NotMapped]
+        public string CardDescription
+        {
+            get {
+                string NewDescription = Description;
+                
+                if (Description.Length > 103 )
+                {
+                    NewDescription = Description.Substring(0, 100) + "...";
+                }
+
+                return NewDescription;
+            }
+        }
+
+        [NotMapped]
+        public string CardTitle
+        {
+            get
+            {
+                string NewTitle = Title;
+
+                if (Title.Length > 25)
+                {
+                    NewTitle = Title.Substring(0, 22) + "...";
+                }
+
+                return NewTitle;
+            }
+        }
 
         public Session()
         {
