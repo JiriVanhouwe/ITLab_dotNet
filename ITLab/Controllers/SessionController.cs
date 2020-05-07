@@ -71,8 +71,14 @@ namespace ITLab.Controllers
                 _usersRepository.SaveChanges();
                  
                  }
-                catch
+                catch(Exception e)
+                { 
+                    if(e is ArgumentException)
                 {
+                    TempData["error"] = e.Message;
+                } 
+                else 
+
                     TempData["error"] = "Sorry, er ging iets mis...";
                 }
 

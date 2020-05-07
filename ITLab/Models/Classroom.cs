@@ -13,7 +13,7 @@ namespace ITLab.Models
 
         public string Classid { get; set; }
         public Campus Campus { get; set; }
-        public string Maxseats { get; set; }
+        public int Maxseats { get; set; }
         public RoomCategory Roomcategory { get; set; }
 
         public virtual ICollection<Session> Session { get; set; }

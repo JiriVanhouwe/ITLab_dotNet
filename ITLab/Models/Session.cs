@@ -76,7 +76,20 @@ namespace ITLab.Models
 
         public void AddRegisteredUser(ItlabUser user)
         {
-            RegisterdUser.Add(new RegisterdUser(this, user));
+            if(user.UserStatus == UserStatus.ACTIVE)
+            {
+                RegisterdUser.Add(new RegisterdUser(this, user));
+            }
+            else
+            {
+                throw new ArgumentException("Je account staat op nonactive contacteer de itlab verantwoordlijke");
+            }
+            
+        }
+
+        internal void RemoveAttendeeUser(ItlabUser userAttend)
+        {
+            AttendeeUser.Remove(AttendeeUser.First(e => e.UserUsernameNavigation.Equals(userAttend)));
         }
 
         public void RemoveRegisteredUser(ItlabUser user)
@@ -101,14 +114,25 @@ namespace ITLab.Models
 
         public void AddFeedback(ItlabUser user, string text)
         {
-            Feedback.Add(new Feedback(user, text));
+            if (user.UserStatus == UserStatus.ACTIVE)
+            {
+                Feedback.Add(new Feedback(user, text));
+            }
+            else
+            {
+                throw new ArgumentException("Je account staat op nonactive contacteer de itlab verantwoordlijke");
+            }
+            ;
         }
 
         public void AddAttendeeUser(ItlabUser itlabUser)
         {
             if (!RegisterdUser.Any(e => e.UserUsernameNavigation.Equals(itlabUser)))
             {
-                AddRegisteredUser(itlabUser);
+                if(RegisterdUser.Count() < Maxattendee)
+                    AddRegisteredUser(itlabUser);
+                else
+                    throw new ArgumentException("user niet ingeschreven max aantal plaatsen bereikt");
             }
             if (!AttendeeUser.Any(e => e.UserUsernameNavigation.Equals(itlabUser)))
             {

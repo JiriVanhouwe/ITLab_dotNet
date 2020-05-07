@@ -46,29 +46,34 @@
 
                         @foreach (var re in Model.Session.RegisterdUser)
                         {
-                            <tr>
-                                <td> @re.UserUsername</td>
+                    <tr>
+                        <td> @re.UserUsername</td>
 
 
-                                @if (Model.Session.AttendeeUser.Any(at => re.UserUsernameNavigation.Equals(at.UserUsernameNavigation)))
-                                {
-                                    <td></td>
-                                    <td> aanwezig</td>
+                        @if (Model.Session.AttendeeUser.Any(at => re.UserUsernameNavigation.Equals(at.UserUsernameNavigation)))
+                        {
+                            <td>
+                                <form method="post">
+                                    <input type="hidden" asp-for="Email" value="@re.UserUsername" />
+                                    <button class="btn btn-secondary" type="submit">zet afwezig</button>
+                                </form>
+                            </td>
+                            <td> aanwezig</td>
 
-                                }
-                                else
-                                {
-                                    <td>
-                                        <form method="post">
-                                            <input type="hidden" asp-for="Email" value="@re.UserUsername" />
-                                            <button class="btn btn-secondary" type="submit">zet aanwezig</button>
-                                        </form>
-                                    </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <form method="post">
+                                    <input type="hidden" asp-for="Email" value="@re.UserUsername" />
+                                    <button class="btn btn-secondary" type="submit">zet aanwezig</button>
+                                </form>
+                            </td>
 
-                                    <td> nog niet aanwezig</td>
+                            <td> nog niet aanwezig</td>
 
-                                }
-                            </tr>
+                        }
+                    </tr>
                         }
 
                     </table>

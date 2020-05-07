@@ -7,6 +7,6 @@ namespace ITLab.Models
 {
     public enum UserStatus
     {
-        ACTIVE, BLOCKED, NOTACTIVE
+        ACTIVE, BLOCKED, NONACTIVE
     }
 }

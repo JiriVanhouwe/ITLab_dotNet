@@ -72,9 +72,18 @@ namespace ITLab.Controllers
             if(userAttend != null && session != null) {
                 try 
                 {
-                    session.AddAttendeeUser(userAttend);
-                    _sessionRepository.SaveChanges();
-                    TempData["message"] = $"{userAttend.Username} is aangemeld";
+                    if(session.AttendeeUser.Any(e => e.UserUsernameNavigation.Equals(userAttend)))
+                    {
+                        session.RemoveAttendeeUser(userAttend);
+                        _sessionRepository.SaveChanges();
+                        TempData["message"] = $"{userAttend.Username} is afgemeld";
+                    }
+                    else
+                    {
+                        session.AddAttendeeUser(userAttend);
+                        _sessionRepository.SaveChanges();
+                        TempData["message"] = $"{userAttend.Username} is anngemeld";
+                    }
                 }
                 catch(Exception e)
                 {
