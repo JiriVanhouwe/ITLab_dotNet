@@ -8,15 +8,7 @@ namespace ITLab.Models
     {
         public int Id { get; set; }
         public string Contenttext { get; set; }
-        //public string AuthorUsername {
-        //    get => AuthorUsername;
-        //    private set
-        //    {
-        //        if (value == null)
-        //            throw new ArgumentException("De schrijver werd niet herkend.");
-        //        AuthorUsername = value;
-        //    }
-        //}
+        
 
         public string AuthorUsername { get; set; }
         public int? SessionId { get; set; }
