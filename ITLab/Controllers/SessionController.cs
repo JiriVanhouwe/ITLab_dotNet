@@ -40,8 +40,9 @@ namespace ITLab.Controllers
             }
            
             ViewData["SessionIsFinished"] = session.Stateenum.Equals(State.FINISHED);
-            
 
+            if (session.Feedback.Count > 0)
+                ViewData["Feedback"] = session.Feedback;
 
             return View(session);
         }

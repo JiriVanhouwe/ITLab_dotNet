@@ -34,20 +34,20 @@
                     {
                     <p style="margin-right: 10px; color:red;">Log je in om in te schrijven.</p>
 
-                    }
-                     else
-                    {
+                }
+                else
+                {
 
                     @if (Model.SeatsAvailable() > 0)
-                        {
-                        
-                            <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session"  asp-action="RegisterForSession" asp-route-id="@Model.Id" role="button">@ViewData["ActieKnop"]</a>
-                        }
-                            else
-                            {
+                    {
+
+                        <a class="btn btn-success" style="margin-right: 10px;" asp-controller="Session" asp-action="RegisterForSession" asp-route-id="@Model.Id" role="button">@ViewData["ActieKnop"]</a>
+                    }
+                    else
+                    {
                         <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
-                            }
-                     }
+                    }
+                }
                 }
                 else
                 {
@@ -55,13 +55,13 @@
                     <p style="margin-right: 10px;">Deze sessie is afgelopen inschrijven niet mogelijk</p>
                     @if ((bool)ViewData["UserLoggedIn"] == true)
                     {
-                    @if ((bool)ViewData["UserAttended"] == true)
-                    {
+                        @if ((bool)ViewData["UserAttended"] == true)
+                        {
 
-                        <a class="btn btn-primary" asp-controller="Feedback" asp-action="Index" asp-route-id="@Model.Id" role="button">Feedback</a>
-                    }
+                            <a class="btn btn-primary" asp-controller="Feedback" asp-action="Index" asp-route-id="@Model.Id" role="button">Feedback</a>
                         }
                     }
+                }
 
 
                 <a class="btn btn-primary" asp-controller="Calendar" asp-action="Index" role="button">Terug</a>
@@ -78,5 +78,21 @@
                     }
                 </div>
             </div>
+
+            @if (ViewData["Feedback"] != null)
+            {
+                <div class="jumbotron">
+                    <h1 class="display-4">Overzicht feedback</h1>
+                    <hr class="my-4">
+                    @foreach (var feedback in ViewData["Feedback"] as ICollection<Feedback>)
+                    {
+                        <div class="form-group shadow-textarea">
+                            <label style="font-weight:bold;" for="author">@feedback.AuthorUsernameNavigation.Firstname @feedback.AuthorUsernameNavigation.Lastname</label>
+                            <textarea style="cursor:default; background-color:white;" readonly class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" placeholder="@feedback.Contenttext"></textarea>
+                        </div>
+                    }
+                </div>
+            }
+
         </div>
 
