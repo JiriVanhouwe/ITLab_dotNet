@@ -142,5 +142,10 @@ namespace ITLab.Models
                 throw new ArgumentException("user is al aanwezig");
             
         }
+
+        public DateTime GiveDeadlineForFeedback()
+        {
+            return Eventdate.AddDays(14);
+        }
     }
 }
