@@ -21,12 +21,14 @@ namespace ITLab.Tests.Data
         {
             //USERS
             //Gewone user
-            Student = new ItlabUser();
-            Student.Firstname = "Brad";
-            Student.Lastname = "Pitt";
-            Student.Username = "brad.pitt@student.hogent.be";
-            Student.UserStatus = UserStatus.ACTIVE;
-            Student.UserType = UserType.USERITLAB;
+            Student = new ItlabUser
+            {
+                Firstname = "Brad",
+                Lastname = "Pitt",
+                Username = "brad.pitt@student.hogent.be",
+                UserStatus = UserStatus.ACTIVE,
+                UserType = UserType.USERITLAB
+            };
             Hoofdverantwoordelijke = new ItlabUser();
             Verantwoordelijke = new ItlabUser();
 
@@ -34,10 +36,12 @@ namespace ITLab.Tests.Data
 
             //SESSIONS
             //Session1
-            Session1 = new Session();
-            Session1.Title = "Coderen voor blinden";
-            Session1.Id = 1;
-            Session1.Eventdate = new DateTime(2020, 01, 01);
+            Session1 = new Session
+            {
+                Title = "Coderen voor blinden",
+                Id = 1,
+                Eventdate = new DateTime(2020, 01, 01)
+            };
 
             Sessions = new[] { Session1 };
 
