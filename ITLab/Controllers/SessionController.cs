@@ -37,11 +37,13 @@ namespace ITLab.Controllers
                 ViewData["UserLoggedIn"] = true;
                 ViewData["UserAlreadyRegistered"] = session.IsUserRegistered(IUserRepository.LoggedInUser.Username); //de ingelogde user is al geregistreerd voor deze sessie
                 ViewData["UserAttended"] = session.AttendeeUser.Any(e => e.UserUsername == loggedInUser.Username);
+               // ViewData["DeadlineForFeedback"] = session.GiveDeadlineForFeedback();
             }
            
             ViewData["SessionIsFinished"] = session.Stateenum.Equals(State.FINISHED);
-            
 
+            if (session.Feedback.Count > 0)
+                ViewData["Feedback"] = session.Feedback;
 
             return View(session);
         }

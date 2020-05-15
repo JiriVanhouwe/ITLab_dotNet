@@ -27,7 +27,7 @@
 
                 <div>
                     <button class="btn btn-primary" type="submit">Verstuur</button>
-                    <a class="btn btn-primary" asp-controller="Session" asp-action="Index">Terug</a>
+                    <a class="btn btn-primary" asp-controller="Session" asp-action="Index" asp-route-id="@ViewData["sessionId"]">Terug</a>
                 </div>
             </form>
 
@@ -46,10 +46,13 @@
 </div>
 
 
-@section scripts {
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-}
+
+
+
+    @section scripts {
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    }
 
 
 
