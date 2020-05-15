@@ -12,6 +12,8 @@ namespace ITLab.Models
         Session GetFirstComingSession();
         IList<Session> GetFirstComingSessions(int amount);
 
+        IList<Session> GetFinshedAndOpenSessions();
+
         Image GetImage(int id);
 
         void UpdateFinishedSessions();

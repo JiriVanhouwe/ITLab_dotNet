@@ -86,6 +86,15 @@ namespace ITLab.Data.Repositories
             _context.SaveChanges();
         }
 
-
+        public IList<Session> GetFinshedAndOpenSessions()
+        {
+            return _sessions
+                       .Where(session => session.SessionCalendar.Startdate <= DateTime.Now && session.SessionCalendar.Enddate >= DateTime.Now)
+                       .Where(session => session.Stateenum == State.FINISHED || session.Stateenum == State.OPEN)
+                       .Include(session => session.RegisterdUser)
+                       .Include(session => session.AttendeeUser)
+                       .Include(session => session.ClassroomClass)
+                       .ToList();
+        }
     }
 }

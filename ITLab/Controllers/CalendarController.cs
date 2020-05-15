@@ -20,7 +20,9 @@ namespace ITLab.Controllers
         public IActionResult Index()
         {
 
-            IEnumerable<Session> allSessions = _sessionRepository.GetSessions();
+            IEnumerable<Session> allSessions = _sessionRepository.GetFinshedAndOpenSessions();
+
+            
 
             return View(allSessions);
         }

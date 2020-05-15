@@ -28,10 +28,23 @@
                         @:title: "@item.Title",
                         @:start: "@item.Eventdate.ToString("yyyy'-'MM'-'dd")" + "T" + "@item.Starthour.ToString(@"hh\:mm\:ss")",
                         @:end: "@item.Eventdate.ToString("yyyy'-'MM'-'dd")" + "T" + "@item.Endhour.ToString(@"hh\:mm\:ss")",
-                        @:url: "@Url.Action("Index", "Session", @item.Id, "https")/Index/@item.Id"
+                        @:url: "@Url.Action("Index", "Session", @item.Id, "https")/Index/@item.Id",
+                        @if(item.Stateenum == State.FINISHED)
+                        {
+                             @:backgroundColor:  '#838383',
+                        }
+                        else
+                        {
+                            @:backgroundColor:  '#007bff',
+                        }
+                        @: borderColor: 'grey'
+
+
                     @:},
+
                 }
-            ]
+            ],
+
         });
 
         calendar.render();
