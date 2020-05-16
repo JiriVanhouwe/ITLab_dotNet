@@ -1,6 +1,8 @@
 ﻿using ITLab.Controllers;
 using ITLab.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -26,8 +28,9 @@ namespace ITLab.Tests.Controllers
         [Fact]
         public void Index_NoUserLoggedInNoFeedback_GivesSessionBasedOnIdAndCorrectViewData()
         {
-            Session session = new Session() { Id = 21, Title = "Testen testen testen", Description = "We testen live een SessionController klasse uit", Nameguest = "test.test@test.com", Eventdate = new DateTime(), Starthour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(2)), Endhour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(4)) };
+            var session = new Session() { Id = 21, Title = "Testen testen testen", Description = "We testen live een SessionController klasse uit", Nameguest = "test.test@test.com", Eventdate = new DateTime(), Starthour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(2)), Endhour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(4)) };
             _sessionRepository.Setup(m => m.GetById(21)).Returns(session);
+            IUserRepository.LoggedInUser = null;
 
             var result = Assert.IsType<ViewResult>(_sessionController.Index(21));
             var model = Assert.IsType<Session>(result.Model);
@@ -46,12 +49,12 @@ namespace ITLab.Tests.Controllers
         }
 
         [Fact]
-        public void Index_UserLoggedInAndFeeback_GivesSessionBasedOnIdAndCorrectViewData()
+        public void IndexuserLoggedInAndFeeback_GivesSessionBasedOnIdAndCorrectViewData()
         {
             Session session = new Session() { Id = 21, Title = "Testen testen testen", Description = "We testen live een SessionController klasse uit", Nameguest = "test.test@test.com", Eventdate = new DateTime(), Starthour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(2)), Endhour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(4)) };
+            ItlabUser user = new ItlabUser() { Firstname = "Mister", Lastname = "AdminMan" };
             _sessionRepository.Setup(m => m.GetById(21)).Returns(session);
 
-            ItlabUser user = new ItlabUser() { Firstname = "Mister", Lastname = "AdminMan"};
             IUserRepository.LoggedInUser = user;
             session.AddFeedback(user, "Top sessie");
 
@@ -79,5 +82,28 @@ namespace ITLab.Tests.Controllers
         }
 
         #endregion
+
+        [Fact]
+        public void RegisterForSession_WrongId_ReturnsNotFound()
+        {
+            Assert.IsType<NotFoundResult>(_sessionController.RegisterForSession(25));
+        }
+
+        [Fact]
+        public void RegisterForSession_NotYetSignedUp_UserSignedUpAndMessageInTempDataAndRedirectToIndex()
+        {
+            Session session = new Session() { Id = 21, Title = "Testen testen testen", Description = "We testen live een SessionController klasse uit", Nameguest = "test.test@test.com", Eventdate = new DateTime(), Starthour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(2)), Endhour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(4)) };
+            _sessionRepository.Setup(m => m.GetById(21)).Returns(session);
+
+            var httpContext = new DefaultHttpContext();
+            var tempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
+
+            var result = Assert.IsType<RedirectToActionResult>(_sessionController.RegisterForSession(21));
+            Assert.Equal("index", result.ActionName);
+            Assert.Equal("Je bent ingeschreven voor deze sessie.", tempData["message"]);
+
+            _sessionRepository.Verify(m => m.SaveChanges(), Times.Once());
+            _userRepository.Verify(m => m.SaveChanges(), Times.Once());
+        }
     }
 }

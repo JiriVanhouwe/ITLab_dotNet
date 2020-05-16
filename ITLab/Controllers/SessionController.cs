@@ -55,7 +55,6 @@ namespace ITLab.Controllers
                 return NotFound();
 
             ItlabUser loggedInUser = IUserRepository.LoggedInUser;
-            var test = session.RegisterdUser;
             try
             {
                 if(session.RegisterdUser.Any(e => e.UserUsernameNavigation.Equals(loggedInUser)))
@@ -72,15 +71,14 @@ namespace ITLab.Controllers
                 _sessionRepository.SaveChanges();
                 _usersRepository.SaveChanges();
                  
-                 }
-                catch(Exception e)
+            }
+            catch(Exception e)
                 { 
                     if(e is ArgumentException)
                 {
                     TempData["error"] = e.Message;
                 } 
                 else 
-
                     TempData["error"] = "Sorry, er ging iets mis...";
                 }
 
