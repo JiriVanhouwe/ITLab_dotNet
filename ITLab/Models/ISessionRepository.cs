@@ -18,5 +18,7 @@ namespace ITLab.Models
 
         void UpdateFinishedSessions();
         void SaveChanges();
+
+        List<Image> GetImages(int id);
     }
 }

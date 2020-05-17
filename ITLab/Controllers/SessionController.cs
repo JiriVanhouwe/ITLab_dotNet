@@ -46,6 +46,12 @@ namespace ITLab.Controllers
             if (session.Feedback.Count > 0)
                 ViewData["Feedback"] = session.Feedback;
 
+            List<Image> listImages = _sessionRepository.GetImages(id);
+
+
+            ViewData["Images"] = listImages;
+            ViewBag.Images = listImages;
+
             return View(session);
         }
 

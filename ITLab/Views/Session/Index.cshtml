@@ -17,13 +17,40 @@
             <p class="lead">@Model.Description</p>
             <hr class="my-4">
             <p class="lead">Alles wat je moet weten</p>
-            <div class="card" style="width: 50%;">
-                <ul class="list-group list-group-flush list-group-item-dark">
-                    <li style="margin-bottom:5px;" class="list-group-item">Spreker: <strong>@Model.Nameguest</strong></li>
-                    <li style="margin-bottom:5px;" class="list-group-item">Wanneer: @Model.Eventdate.ToShortDateString() van @(string.Format("{0:00}:{1:00}", Model.Starthour.Hours, Model.Endhour.Minutes)) tot @(string.Format("{0:00}:{1:00}", Model.Endhour.Hours, Model.Endhour.Minutes))</li>
-                    <li style="margin-bottom:5px;" class="list-group-item">Waar: @Model.ClassroomClassid</li>
-                    <li class="list-group-item">Aantal inschrijvingen: @Model.RegisterdUser.Count/@Model.Maxattendee</li>
-                </ul>
+            <div class="row">
+                <div class="card col-6" style="width: 50%;">
+                    <ul class="list-group list-group-flush list-group-item-dark">
+                        <li style="margin-bottom:5px;" class="list-group-item">Spreker: <strong>@Model.Nameguest</strong></li>
+                        <li style="margin-bottom:5px;" class="list-group-item">Wanneer: @Model.Eventdate.ToShortDateString() van @(string.Format("{0:00}:{1:00}", Model.Starthour.Hours, Model.Endhour.Minutes)) tot @(string.Format("{0:00}:{1:00}", Model.Endhour.Hours, Model.Endhour.Minutes))</li>
+                        <li style="margin-bottom:5px;" class="list-group-item">Waar: @Model.ClassroomClassid</li>
+                        <li class="list-group-item">Aantal inschrijvingen: @Model.RegisterdUser.Count/@Model.Maxattendee</li>
+                    </ul>
+                </div>
+                @if (ViewBag.Images.Count > 0)
+                {
+                    <div class="carousel slide col-6" data-ride="carousel">
+                        <div class="carousel-inner">
+
+
+
+                            @foreach (var image in ViewBag.Images)
+                            {
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="data:image.png;base64, @image.ToBase64()" alt="Second slide" style="height: 220px !important; object-fit: cover">
+                                </div>
+                            }
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                }
+
             </div>
             <p class="lead" style="margin-top: 10px;">
 
@@ -47,9 +74,9 @@
                     }
                     else
                     {
-                        <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
-                    }
-                
+                    <p style="margin-right: 10px; color:red;">Deze sessie is volzet.</p>
+                }
+
                 }
                 else
                 {

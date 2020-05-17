@@ -86,6 +86,13 @@ namespace ITLab.Data.Repositories
             return list.Select(el => el.Media).Select(el => _images.SingleOrDefault(el2 => el2.Imagekey == el)).FirstOrDefault();
         }
 
+        public List<Image> GetImages(int id)
+        {
+            List<SessionMedia> list = _sessionMedia.Where(i => i.SessionId == id).ToList();
+            return list.Select(el => el.Media).Select(el => _images.SingleOrDefault(el2 => el2.Imagekey == el)).ToList();
+
+        }
+
 
         public void SaveChanges()
         {
