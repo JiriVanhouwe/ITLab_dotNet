@@ -29,8 +29,6 @@ namespace ITLab.Controllers
             
             ViewData["image"] = listImages;
 
-            if (sessions == null)
-                return NotFound(); //TODO wat als er geen komende sessie is? Dan verandert de view?
             return View(sessions);
         }
     }

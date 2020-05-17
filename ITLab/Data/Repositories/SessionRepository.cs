@@ -37,13 +37,19 @@ namespace ITLab.Data.Repositories
 
         public Session GetFirstComingSession()
         {
-            return _sessions.Where(s => s.Eventdate >= DateTime.Now).OrderBy(s => s.Eventdate).FirstOrDefault();
+            return _sessions.Where(session =>  session.Stateenum == State.OPEN)
+                            .Where(s => s.Eventdate >= DateTime.Now).OrderBy(s => s.Eventdate).FirstOrDefault();
         }
 
         public IList<Session> GetFirstComingSessions(int amount)
         {
-            List<Session> upcomingSessions = _sessions.Where(s => s.Eventdate >= DateTime.Now).OrderBy(s => s.Eventdate).ToList();
-            return upcomingSessions.GetRange(0, amount).ToList();
+            List<Session> upcomingSessions = _sessions.Where(session => session.Stateenum == State.OPEN)
+                                                      .Where(s => s.Eventdate >= DateTime.Now).OrderBy(s => s.Eventdate).ToList();
+            if(amount <= upcomingSessions.Count)
+            {
+                return upcomingSessions.GetRange(0, amount).ToList();
+            }
+            return upcomingSessions;
         }
 
         public IList<Session> GetSessions()

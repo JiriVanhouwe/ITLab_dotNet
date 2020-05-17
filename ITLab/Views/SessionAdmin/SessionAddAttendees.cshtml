@@ -16,12 +16,20 @@
             <hr class="my-4">
         </div>
         <div class="container" style="padding: 0em 2em 0.5em 2em">
-            <form asp-action="SessionAddAttendees" method="post">
-                <div class=" form-group input-group">
-                    <input class="form-control" asp-for="Email" placeholder="Geef een e-mailadres in om een gebruiker als aanwezig te registreren." />
-                    <button class="btn btn-primary" type="submit" style="margin-left:10px;">Is aanwezig</button>
-                </div>
-            </form>
+            @if (Model.Session.Stateenum != State.FINISHED)
+            {
+                <form asp-action="SessionAddAttendees" method="post">
+                    <div class=" form-group input-group">
+                        <input class="form-control" asp-for="Email" placeholder="Geef een e-mailadres in om een gebruiker als aanwezig te registreren." />
+                        <button class="btn btn-primary" type="submit" style="margin-left:10px;">Is aanwezig</button>
+                    </div>
+                </form>
+            }else
+            {
+                 <p> sessie is afgelopen opnemen van aanwezigheden niet meer mogelijk</p>
+            }
+            
+
             <div style="margin-top: 1em">
                 @if (TempData["message"] != null)
                 {
@@ -46,34 +54,34 @@
 
                         @foreach (var re in Model.Session.RegisterdUser)
                         {
-                    <tr>
-                        <td> @re.UserUsername</td>
+                            <tr>
+                                <td> @re.UserUsername</td>
 
 
-                        @if (Model.Session.AttendeeUser.Any(at => re.UserUsernameNavigation.Equals(at.UserUsernameNavigation)))
-                        {
-                            <td>
-                                <form method="post">
-                                    <input type="hidden" asp-for="Email" value="@re.UserUsername" />
-                                    <button class="btn btn-secondary" type="submit">zet afwezig</button>
-                                </form>
-                            </td>
-                            <td> aanwezig</td>
+                                @if (Model.Session.AttendeeUser.Any(at => re.UserUsernameNavigation.Equals(at.UserUsernameNavigation)) && Model.Session.Stateenum != State.FINISHED)
+                                {
+                                    <td>
+                                        <form method="post">
+                                            <input type="hidden" asp-for="Email" value="@re.UserUsername" />
+                                            <button class="btn btn-secondary" type="submit">zet afwezig</button>
+                                        </form>
+                                    </td>
+                                    <td> aanwezig</td>
 
-                        }
-                        else
-                        {
-                            <td>
-                                <form method="post">
-                                    <input type="hidden" asp-for="Email" value="@re.UserUsername" />
-                                    <button class="btn btn-secondary" type="submit">zet aanwezig</button>
-                                </form>
-                            </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <form method="post">
+                                            <input type="hidden" asp-for="Email" value="@re.UserUsername" />
+                                            <button class="btn btn-secondary" type="submit">zet aanwezig</button>
+                                        </form>
+                                    </td>
 
-                            <td> nog niet aanwezig</td>
+                                    <td> nog niet aanwezig</td>
 
-                        }
-                    </tr>
+                                }
+                            </tr>
                         }
 
                     </table>
