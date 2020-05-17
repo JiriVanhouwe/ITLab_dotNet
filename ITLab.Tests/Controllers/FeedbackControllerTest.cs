@@ -58,7 +58,7 @@ namespace ITLab.Tests.Controllers
             _dummyContext.Session1.AddFeedback(_dummyContext.Student, fvm.Feedback);
 
             var result = Assert.IsType<RedirectToActionResult>(_feedbackController.Index(1, fvm));
-            Assert.Equal(1, _dummyContext.Session1.Feedback.Count);
+            Assert.NotEmpty(_dummyContext.Session1.Feedback);
             Assert.Equal("Index", result.ActionName);
            // _sessionRepo.Verify(m => m.SaveChanges(), Times.Once);
         }

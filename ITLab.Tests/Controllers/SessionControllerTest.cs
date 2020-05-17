@@ -17,11 +17,18 @@ namespace ITLab.Tests.Controllers
         private Mock<ISessionRepository> _sessionRepository;
         private Mock<IUserRepository> _userRepository;
 
+        private ITempDataDictionary _tempData;
+
         public SessionControllerTest()
         {
             _sessionRepository = new Mock<ISessionRepository>();
             _userRepository = new Mock<IUserRepository>();
-            _sessionController = new SessionController(_sessionRepository.Object, _userRepository.Object);
+
+            ITempDataProvider tempDataProvider = Mock.Of<ITempDataProvider>();
+            TempDataDictionaryFactory tempDataDictionaryFactory = new TempDataDictionaryFactory(tempDataProvider);
+            _tempData = tempDataDictionaryFactory.GetTempData(new DefaultHttpContext());
+
+            _sessionController = new SessionController(_sessionRepository.Object, _userRepository.Object) { TempData = _tempData };
         }
 
         #region Index
@@ -52,7 +59,7 @@ namespace ITLab.Tests.Controllers
         public void IndexuserLoggedInAndFeeback_GivesSessionBasedOnIdAndCorrectViewData()
         {
             Session session = new Session() { Id = 21, Title = "Testen testen testen", Description = "We testen live een SessionController klasse uit", Nameguest = "test.test@test.com", Eventdate = new DateTime(), Starthour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(2)), Endhour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(4)) };
-            ItlabUser user = new ItlabUser() { Firstname = "Mister", Lastname = "AdminMan" };
+            ItlabUser user = new ItlabUser() { Firstname = "Mister", Lastname = "AdminMan" , UserStatus = UserStatus.ACTIVE };
             _sessionRepository.Setup(m => m.GetById(21)).Returns(session);
 
             IUserRepository.LoggedInUser = user;
@@ -94,13 +101,29 @@ namespace ITLab.Tests.Controllers
         {
             Session session = new Session() { Id = 21, Title = "Testen testen testen", Description = "We testen live een SessionController klasse uit", Nameguest = "test.test@test.com", Eventdate = new DateTime(), Starthour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(2)), Endhour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(4)) };
             _sessionRepository.Setup(m => m.GetById(21)).Returns(session);
-
-            var httpContext = new DefaultHttpContext();
-            var tempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
+            IUserRepository.LoggedInUser = new ItlabUser() { Firstname = "Mister", Lastname = "AdminMan", Username = "username", UserStatus = UserStatus.ACTIVE };
 
             var result = Assert.IsType<RedirectToActionResult>(_sessionController.RegisterForSession(21));
             Assert.Equal("index", result.ActionName);
-            Assert.Equal("Je bent ingeschreven voor deze sessie.", tempData["message"]);
+            Assert.Equal("Je bent ingeschreven voor deze sessie.", _tempData["message"]);
+            Assert.True(session.IsUserRegistered(IUserRepository.LoggedInUser.Username));
+
+            _sessionRepository.Verify(m => m.SaveChanges(), Times.Once());
+            _userRepository.Verify(m => m.SaveChanges(), Times.Once());
+        }
+
+        [Fact]
+        public void RegisterForSession_AlreadySignedUp_UserSignedOffAndMessageInTempDataAndRedirectToIndex()
+        {
+            Session session = new Session() { Id = 21, Title = "Testen testen testen", Description = "We testen live een SessionController klasse uit", Nameguest = "test.test@test.com", Eventdate = new DateTime(), Starthour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(2)), Endhour = DateTime.Now.TimeOfDay.Add(TimeSpan.FromHours(4)) };
+            _sessionRepository.Setup(m => m.GetById(21)).Returns(session);
+            IUserRepository.LoggedInUser = new ItlabUser() { Firstname = "Mister", Lastname = "AdminMan", Username = "username", UserStatus = UserStatus.ACTIVE };
+            session.AddRegisteredUser(IUserRepository.LoggedInUser);
+
+            var result = Assert.IsType<RedirectToActionResult>(_sessionController.RegisterForSession(21));
+            Assert.Equal("index", result.ActionName);
+            Assert.Equal("Je bent uitgeschreven voor deze sessie.", _tempData["message"]);
+            Assert.False(session.IsUserRegistered(IUserRepository.LoggedInUser.Username));
 
             _sessionRepository.Verify(m => m.SaveChanges(), Times.Once());
             _userRepository.Verify(m => m.SaveChanges(), Times.Once());

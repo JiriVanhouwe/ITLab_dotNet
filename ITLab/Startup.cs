@@ -68,6 +68,8 @@ namespace ITLab
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseCookiePolicy();
+
             app.UseEndpoints(endpoints =>
             {
                 //When a user tries to acces the register page he is redirected
