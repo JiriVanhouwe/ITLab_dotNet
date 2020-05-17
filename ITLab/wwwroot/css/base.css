@@ -22,6 +22,8 @@
     max-height: 600px !important;
 }*/
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 
 /* ------- LANDINGPAGE -------- */
 /* --- header ---- */
@@ -38,8 +40,9 @@
 }
 
 #landing .header .text-container {
-    max-width:1020px;
+    max-width: 1030px;
     margin: 0 auto;
+    
 }
 
 #landing .header .typewriter h1 {
@@ -50,6 +53,7 @@
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
     letter-spacing: .15em; /* Adjust as needed */
     animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    font-family: sans-serif !important;
 }
 
 .session-img {
