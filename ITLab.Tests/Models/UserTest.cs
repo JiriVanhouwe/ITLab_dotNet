@@ -8,7 +8,6 @@ namespace ITLab.Tests.Models
 {
     public class UserTest
     {
-		/*
         #region CONSTRUCTOR
         [Theory]
         [InlineData("donald", "troemp", "donald.troemp@student.hogent.be", UserType.USERITLAB, UserStatus.ACTIVE, "AmericaIsGreat")]
@@ -22,15 +21,15 @@ namespace ITLab.Tests.Models
         [InlineData("Donald", "Troemp", "donald.troemp@hogent.be", UserType.USERITLAB, UserStatus.ACTIVE, "AmericaIsGreat")]
         public void User_CorrectData_CreatesUser(string firstName, string lastName, string userName, UserType userType, UserStatus userStatus, string password)
         {
-            User user = new User(firstName, lastName, userName, userType, userStatus, password);
-            Assert.Equal(user.FirstName, firstName);
-            Assert.Equal(user.LastName, lastName);
-            Assert.Equal(user.UserName, userName);
+            ItlabUser user = new ItlabUser() { Firstname = firstName, Lastname = lastName, Username = userName, UserType = userType, UserStatus = userStatus, Password = password };
+            Assert.Equal(user.Firstname, firstName);
+            Assert.Equal(user.Lastname, lastName);
+            Assert.Equal(user.Username, userName);
             Assert.Equal(user.UserType, userType);
             Assert.Equal(user.UserStatus, userStatus);
             Assert.Equal(user.Password, password);
         }
-		/*
+
 		[Theory]
 		//fout in voornaam
 		[InlineData("Don4ld", "Troemp", "donald.troemp@student.hogent.be", UserType.USERITLAB, UserStatus.ACTIVE, "123")]
@@ -68,9 +67,9 @@ namespace ITLab.Tests.Models
 		[InlineData("Donald", "Troemp", "donald.troemp@student.hogent.be", UserType.USERITLAB, null, "123")]
         public void User_WrongData_ThrowsException(string firstName, string lastName, string userName, UserType userType, UserStatus userStatus, string password)
         {
-			Assert.Throws<ArgumentException>(() => new User(firstName, lastName, userName, userType, userStatus, password));
-        }*/
-        //#endregion
+			Assert.Throws<ArgumentException>(() => new ItlabUser() { Firstname = firstName, Lastname = lastName, Username = userName, UserType = userType, UserStatus = userStatus, Password = password });
+		}
+        #endregion
 
     }
 }
