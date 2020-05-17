@@ -17,32 +17,12 @@ namespace ITLab.Models
             Session = new HashSet<Session>();
         }
 
-        public string Username 
-        {
-            get { return Username; }
-            set { if(true) { Username = value; } }
-        }
-        public string Firstname
-        {
-            get { return Firstname; }
-            set { if(Regex.IsMatch(value, @"^[a-zA-Z]+$")) { Firstname = value; } }
-        }
-        public string Lastname
-        {
-            get { return Lastname; }
-            set { if (Regex.IsMatch(value, @"^[a-zA-Z]+$")) { Lastname = value; } }
-        }
+        public string Username { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
         public string Password { get; set; }
-        public UserStatus UserStatus
-        {
-            get { return UserStatus; }
-            set { }
-        }
-        public UserType UserType
-        {
-            get { return UserType; }
-            set { }
-        }
+        public UserStatus UserStatus { get; set; }
+        public UserType UserType { get; set; }
 
         public virtual ICollection<AttendeeUser> AttendeeUser { get; set; }
         public virtual ICollection<Feedback> Feedback { get; set; }
