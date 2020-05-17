@@ -1,5 +1,6 @@
 ﻿using ITLab.Models;
 using ITLab.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -48,6 +49,7 @@ namespace ITLab.Controllers
             return View(session);
         }
 
+        [Authorize]
         public IActionResult RegisterForSession(int id)
         {
             Session session = _sessionRepository.GetById(id);
