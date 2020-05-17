@@ -86,5 +86,11 @@ namespace ITLab.Controllers
 
             return RedirectToAction("index", new {  id });
         }
+
+        [Authorize]
+        public IActionResult EvaluateButtons(int id)
+        {
+            return RedirectToAction("index", new { id });
+        }
     }
 }
