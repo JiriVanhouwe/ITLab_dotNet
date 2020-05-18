@@ -33,7 +33,16 @@
                             {
                                 <div class="col-md-4" style="float:left">
                                     <div class="card mb-2 session-card">
-                                        <img class="card-img-top session-img" src="data:image/png;base64, @((ViewData["image"] as List<Image>)[counter++].ToBase64())" />
+                                        @if ((ViewData["image"] as List<Image>).Count > 0)
+                                        {
+                                            <img class="card-img-top session-img" src="data:image/png;base64, @((ViewData["image"] as List<Image>)[counter++].ToBase64())" />
+
+                                        }
+                                        else
+                                        {
+                                            <img class="card-img-top session-img" src="~/img/session-default-image.jpg" />
+
+                                        }
                                         <div class="card-body session-card-body">
                                             <h4 class="card-title">@session.CardTitle</h4>
                                             <p class="card-text session-card-text">
