@@ -23,6 +23,10 @@
                         <li style="margin-bottom:5px;" class="list-group-item">Spreker: <strong>@Model.Nameguest</strong></li>
                         <li style="margin-bottom:5px;" class="list-group-item">Wanneer: @Model.Eventdate.ToShortDateString() van @(string.Format("{0:00}:{1:00}", Model.Starthour.Hours, Model.Endhour.Minutes)) tot @(string.Format("{0:00}:{1:00}", Model.Endhour.Hours, Model.Endhour.Minutes))</li>
                         <li style="margin-bottom:5px;" class="list-group-item">Waar: @Model.ClassroomClassid</li>
+                        @if (Model.Videourl.Length > 0)
+                        {
+                            <li style="margin-bottom:5px;" class="list-group-item">Video: <a href="@Model.Videourl" target="_blank">@Model.Videourl</a></li>
+                        }
                         <li class="list-group-item">Aantal inschrijvingen: @Model.RegisterdUser.Count/@Model.Maxattendee</li>
                     </ul>
                 </div>
