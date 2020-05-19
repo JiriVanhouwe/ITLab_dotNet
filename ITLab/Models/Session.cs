@@ -143,6 +143,19 @@ namespace ITLab.Models
             
         }
 
+        public bool IsUserAtendee(string userId)
+        {
+           
+            return  AttendeeUser.Any(e => e.UserUsername.Split('@')[0].Replace(".", string.Empty).Equals(userId, StringComparison.InvariantCultureIgnoreCase));
+            
+        }
+
+        public bool IsUserRegisterd(string userId)
+        {
+
+            return RegisterdUser.Any(e => e.UserUsername.Split('@')[0].Replace(".", string.Empty).Equals(userId, StringComparison.InvariantCultureIgnoreCase));
+        }
+
         public DateTime GiveDeadlineForFeedback()
         {
             return Eventdate.AddDays(14);

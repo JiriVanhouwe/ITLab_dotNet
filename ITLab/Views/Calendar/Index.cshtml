@@ -31,13 +31,24 @@
                         @:url: "@Url.Action("Index", "Session", @item.Id, "https")/Index/@item.Id",
                         @if(item.Stateenum == State.FINISHED)
                         {
-                             @:backgroundColor:  '#838383',
+                             @:backgroundColor: '#838383',
+
+                            @if (item.IsUserAtendee(User.Identity.Name))
+                            {
+                                @:backgroundColor: '#009933',
+                            }
                         }
                         else
                         {
                             @:backgroundColor:  '#007bff',
+                            @if (item.IsUserRegisterd(User.Identity.Name))
+                            {
+                               @:backgroundColor: '#009933',
+                            }
+;
                         }
-                        @: borderColor: 'grey'
+                        @: borderColor: 'grey',
+
 
 
                     @:},
@@ -56,5 +67,19 @@
         <h1 class="display-4">De kalender</h1>
     </div>
     <div id='calendar'></div>
+    <div >
+        <div class="row text-center" >
+            <p  class="col-1" style=" margin: 1em; " > Legende:</p>
+            <div style=" background-color: #838383 ; margin: 1em; border-radius: 15px; "  class="col-2 ">
+                <p style="color:white;"> <small>Komende sessies</small></p>
+            </div>
+            <div style=" background-color: #007bff ; margin: 1em; border-radius: 15px;  "  class="col-2">
+                <p style="color:white;"><small>Afgelopen sessies</small></p>
+            </div>
+            <div style=" background-color: #009933 ; margin: 1em; border-radius: 15px;  "  class="col-2" >
+                <p style="color:white; "> <small>Ingeschreven</small></p>
+            </div>
 
+        </div>
+    </div>
 </div>
