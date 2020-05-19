@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using ITLab.Models;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using System.Text;
+using ITLab.Data.Repositories;
 
 namespace ITLab.Areas.Identity.Pages.Account
 {
@@ -181,6 +182,7 @@ namespace ITLab.Areas.Identity.Pages.Account
                             //Finally we can perform the actual login and tell the userRepo which user is logged in
                             await _signInManager.SignInAsync(identityUser, isPersistent: false);
                             IUserRepository.LoggedInUser = user;
+                            UserRepository.LoggedInUser = user;
                             Console.WriteLine("Great succes");
                             return SignInResult.Success;
                         }

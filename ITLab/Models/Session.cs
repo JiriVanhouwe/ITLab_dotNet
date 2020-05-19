@@ -100,10 +100,12 @@ namespace ITLab.Models
 
         public bool IsUserRegistered(string userName)
         {
-            if (RegisterdUser.Any(u => u.UserUsername == userName))
-                return true;
-            else
-                return false;
+            return RegisterdUser.Any(u => u.UserUsername == userName);
+        }
+
+        public bool hasUserAttended(string userName)
+        {
+            return AttendeeUser.Any(e => e.UserUsername.Equals(userName));
         }
 
 
@@ -145,14 +147,12 @@ namespace ITLab.Models
 
         public bool IsUserAtendee(string userId)
         {
-           
             return  AttendeeUser.Any(e => e.UserUsername.Split('@')[0].Replace(".", string.Empty).Equals(userId, StringComparison.InvariantCultureIgnoreCase));
             
         }
 
         public bool IsUserRegisterd(string userId)
         {
-
             return RegisterdUser.Any(e => e.UserUsername.Split('@')[0].Replace(".", string.Empty).Equals(userId, StringComparison.InvariantCultureIgnoreCase));
         }
 

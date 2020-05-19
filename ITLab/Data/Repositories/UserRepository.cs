@@ -51,6 +51,7 @@ namespace ITLab.Data.Repositories
             //when this is the case, the loggedInUser in this class won't be set. Therefor we have to check manually if this is the case.
             var user = _httpContextAccessor.HttpContext.User;
             IUserRepository.LoggedInUser = GetById(_userManager.GetUserId(user));
+            UserRepository.LoggedInUser = GetById(_userManager.GetUserId(user));
         }
 
         public ItlabUser GetLoggedInUser()

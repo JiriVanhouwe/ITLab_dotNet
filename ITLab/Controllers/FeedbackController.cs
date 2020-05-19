@@ -43,6 +43,16 @@ namespace ITLab.Controllers
 
             try
             {
+                if (!session.hasUserAttended(loggedInUser.Username))
+                {
+                    throw new InvalidOperationException();
+                }
+
+                if (!session.Stateenum.Equals(State.FINISHED))
+                {
+                    throw new InvalidOperationException();
+                }
+
                 session.AddFeedback(loggedInUser, feedbackViewModel.Feedback);
                 _sessionRepository.SaveChanges();
 
