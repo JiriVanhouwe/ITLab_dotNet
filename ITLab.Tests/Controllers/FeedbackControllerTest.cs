@@ -18,6 +18,7 @@ namespace ITLab.Tests.Controllers
         private readonly Mock<ISessionRepository> _sessionRepo;
         private readonly Mock<IUserRepository> _userRepo;
         private readonly DummyApplicationDbContext _dummyContext;
+        private readonly Session _session;
 
 
        public FeedbackControllerTest()
@@ -29,6 +30,7 @@ namespace ITLab.Tests.Controllers
             {
                 TempData = new Mock<ITempDataDictionary>().Object
             };
+            _session = _dummyContext.Session1;
         }
 
 
@@ -48,19 +50,22 @@ namespace ITLab.Tests.Controllers
         [Fact]
         public void IndexPost_UpdatesSessionWithFeedback_RedirectsToActionIndex()
         {
-            _userRepo.Setup(u => u.GetById("brad.pitt@student.hogent.be")).Returns(_dummyContext.Student);
-            _sessionRepo.Setup(s => s.GetById(1)).Returns(_dummyContext.Session1);
+            //_userRepo.Setup(u => u.GetById("brad.pitt@student.hogent.be")).Returns(_dummyContext.Student);
+            _userRepo.Setup(u => u.GetLoggedInUser()).Returns(_dummyContext.Student);
+            _sessionRepo.Setup(s => s.GetById(1)).Returns(_session);
+            
             var fvm = new FeedbackViewModel()
             {
                 Title = _dummyContext.Session1.Title,
                 Feedback = "Zeer goede sessie"
             };
-            _dummyContext.Session1.AddFeedback(_dummyContext.Student, fvm.Feedback);
+
+           //_session.AddFeedback(_dummyContext.Student, fvm.Feedback);
 
             var result = Assert.IsType<RedirectToActionResult>(_feedbackController.Index(1, fvm));
-            Assert.NotEmpty(_dummyContext.Session1.Feedback);
+            Assert.NotEmpty(_session.Feedback);
             Assert.Equal("Index", result.ActionName);
-           // _sessionRepo.Verify(m => m.SaveChanges(), Times.Once);
+           _sessionRepo.Verify(m => m.SaveChanges(), Times.Once());
         }
     }
 }

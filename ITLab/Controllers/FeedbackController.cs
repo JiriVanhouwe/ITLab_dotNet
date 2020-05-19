@@ -34,7 +34,9 @@ namespace ITLab.Controllers
         [HttpPost]
         public IActionResult Index(int id, FeedbackViewModel feedbackViewModel) 
         {
-            ItlabUser loggedInUser = IUserRepository.LoggedInUser;
+            //ItlabUser loggedInUser = IUserRepository.LoggedInUser;
+            ItlabUser loggedInUser = _usersRepository.GetLoggedInUser();
+
             Session session = _sessionRepository.GetById(id);
             if (session == null)
                 return NotFound();

@@ -10,6 +10,7 @@ namespace ITLab.Models
         public static ItlabUser LoggedInUser { get; set; }
         ItlabUser GetById(string id); //id is de userName = string
         List<ItlabUser> GetAllUsers();
+        ItlabUser GetLoggedInUser(); // is nodig voor mocking
 
         void SaveChanges();
     }

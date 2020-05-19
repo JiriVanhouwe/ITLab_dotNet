@@ -52,5 +52,10 @@ namespace ITLab.Data.Repositories
             var user = _httpContextAccessor.HttpContext.User;
             IUserRepository.LoggedInUser = GetById(_userManager.GetUserId(user));
         }
+
+        public ItlabUser GetLoggedInUser()
+        {
+            return LoggedInUser;
+        }
     }
 }
