@@ -24,11 +24,12 @@
                         <button class="btn btn-primary" type="submit" style="margin-left:10px;">Is aanwezig</button>
                     </div>
                 </form>
-            }else
-            {
-                 <p> sessie is afgelopen opnemen van aanwezigheden niet meer mogelijk</p>
             }
-            
+            else
+            {
+                <p> sessie is afgelopen opnemen van aanwezigheden niet meer mogelijk</p>
+            }
+
 
             <div style="margin-top: 1em">
                 @if (TempData["message"] != null)
@@ -58,38 +59,54 @@
                                 <td> @re.UserUsername</td>
 
 
-                                @if (Model.Session.AttendeeUser.Any(at => re.UserUsernameNavigation.Equals(at.UserUsernameNavigation)) && Model.Session.Stateenum != State.FINISHED)
+                                @if (Model.Session.AttendeeUser.Any(at => re.UserUsernameNavigation.Equals(at.UserUsernameNavigation)))
                                 {
                                     <td>
-                                        <form method="post">
-                                            <input type="hidden" asp-for="Email" value="@re.UserUsername" />
-                                            <button class="btn btn-secondary" type="submit">zet afwezig</button>
-                                        </form>
+                                        @if (Model.Session.Stateenum != State.FINISHED)
+                                        {
+                                            <form method="post">
+                                                <input type="hidden" asp-for="Email" value="@re.UserUsername" />
+                                                <button class="btn btn-secondary" type="submit">zet afwezig</button>
+                                            </form>
+                                        }
                                     </td>
                                     <td> aanwezig</td>
 
                                 }
                                 else
                                 {
-                                    <td>
-                                        <form method="post">
-                                            <input type="hidden" asp-for="Email" value="@re.UserUsername" />
-                                            <button class="btn btn-secondary" type="submit">zet aanwezig</button>
-                                        </form>
-                                    </td>
 
-                                    <td> nog niet aanwezig</td>
+                                    @if (Model.Session.Stateenum != State.FINISHED)
+                                    {
+                                        <td>
+
+                                            <form method="post">
+
+                                                <input type="hidden" asp-for="Email" value="@re.UserUsername" />
+                                                <button class="btn btn-secondary" type="submit">zet aanwezig</button>
+                                            </form>
+                                        </td>
+                                        <td> nog niet aanwezig</td>
+
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                        <td>afwezig</td>
+
+                                    }
+
+
 
                                 }
+                                
+                                
                             </tr>
                         }
 
                     </table>
                 </div>
-                <div class="col-xs-6">
-                    <table class="table">
-                    </table>
-                </div>
+                
             </div>
 
         </div>
