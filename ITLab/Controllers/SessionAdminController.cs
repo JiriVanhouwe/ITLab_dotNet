@@ -30,7 +30,7 @@ namespace ITLab.Controllers
         public IActionResult Index()
         {
             IEnumerable<Session> allSessions = _sessionRepository.GetSessions().OrderBy(e => e.Eventdate).ThenBy(e => e.Starthour);
-
+            ViewData["loggedInUser"] = IUserRepository.LoggedInUser;
             return View(allSessions);
         }
 
@@ -47,10 +47,13 @@ namespace ITLab.Controllers
         public IActionResult OpenSessionConfirmed(int id)
         {
             Session session = _sessionRepository.GetById(id);
-            session.OpenSession();
-            _sessionRepository.SaveChanges();
+            if (IUserRepository.LoggedInUser.Username.Equals(session.HostUsername) || IUserRepository.LoggedInUser.UserType.Equals(UserType.HEAD))
+            {
+                session.OpenSession();
+                _sessionRepository.SaveChanges();
+                
+            }
             return RedirectToAction(nameof(Index));
-
         }
 
 

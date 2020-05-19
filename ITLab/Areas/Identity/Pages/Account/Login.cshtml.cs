@@ -88,7 +88,6 @@ namespace ITLab.Areas.Identity.Pages.Account
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 
                 //Because we have our own password system (with md5 encryption), we can't use this method. Therefor we made our own
-                //var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 var result = await CustomSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
@@ -102,12 +101,11 @@ namespace ITLab.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
+                    ModelState.AddModelError(string.Empty, "Uw account is geblokkeerd, gelieve de administrator te contacteren.");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Login niet geslaagd, verkeerde gegevens");
                     return Page();
                 }
             }
@@ -147,9 +145,14 @@ namespace ITLab.Areas.Identity.Pages.Account
                         if (user.Username.Equals(email) && user.Password.Equals(hashedPassword))
                         {
                             //If the combination is valid we can create an identityuser object and login the user
-
-                            //Firstly we check if there's already a user object with the given email in the AspNetUsers table
                             IdentityUser identityUser = _userManager.FindByIdAsync(email).Result;
+                            //Firstly we check if the user's account hasn't been blocked
+                            if (!user.UserStatus.Equals(UserStatus.ACTIVE))
+                            {
+                                return SignInResult.LockedOut;
+                            }
+
+                            //We check if there's already a user object with the given email in the AspNetUsers table
                             if (identityUser == null)
                             {
                                 //If that isn't the case we create a new one that gets saved in the AspNetUsers table

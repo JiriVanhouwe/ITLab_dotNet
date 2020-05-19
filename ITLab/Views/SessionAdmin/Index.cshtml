@@ -57,7 +57,7 @@
                 </td>
 
                 <td>
-                    @if (item.Stateenum.Equals(State.CLOSED))
+                    @if (item.Stateenum.Equals(State.CLOSED) && ((ViewData["loggedInUser"] as ItlabUser).UserType.Equals(UserType.HEAD) || item.HostUsername.Equals((ViewData["loggedInUser"] as ItlabUser).Username)))
                     {
                         <a asp-controller="SessionAdmin" asp-action="OpenSession" asp-route-id="@item.Id" class="btn btn-secondary text-right ml-5">Sessie openen</a>
                     }
