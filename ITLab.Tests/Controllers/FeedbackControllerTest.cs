@@ -50,17 +50,17 @@ namespace ITLab.Tests.Controllers
         [Fact]
         public void IndexPost_UpdatesSessionWithFeedback_RedirectsToActionIndex()
         {
-            //_userRepo.Setup(u => u.GetById("brad.pitt@student.hogent.be")).Returns(_dummyContext.Student);
             _userRepo.Setup(u => u.GetLoggedInUser()).Returns(_dummyContext.Student);
             _sessionRepo.Setup(s => s.GetById(1)).Returns(_session);
+
+            _session.AddAttendeeUser(_dummyContext.Student);
+            _session.Stateenum = State.FINISHED;
             
             var fvm = new FeedbackViewModel()
             {
                 Title = _dummyContext.Session1.Title,
                 Feedback = "Zeer goede sessie"
             };
-
-           //_session.AddFeedback(_dummyContext.Student, fvm.Feedback);
 
             var result = Assert.IsType<RedirectToActionResult>(_feedbackController.Index(1, fvm));
             Assert.NotEmpty(_session.Feedback);

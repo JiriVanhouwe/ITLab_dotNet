@@ -40,7 +40,8 @@ namespace ITLab.Tests.Data
             {
                 Title = "Coderen voor blinden",
                 Id = 1,
-                Eventdate = new DateTime(2020, 01, 01)
+                Eventdate = new DateTime(2020, 01, 01),
+                Maxattendee = 100
             };
 
             Sessions = new[] { Session1 };
