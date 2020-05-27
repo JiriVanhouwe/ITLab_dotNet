@@ -85,7 +85,7 @@ namespace ITLab.Controllers
                     {
                         session.AddAttendeeUser(userAttend);
                         _sessionRepository.SaveChanges();
-                        TempData["message"] = $"{userAttend.Username} is anngemeld";
+                        TempData["message"] = $"{userAttend.Username} is aangemeld";
                     }
                 }
                 catch(Exception e)
